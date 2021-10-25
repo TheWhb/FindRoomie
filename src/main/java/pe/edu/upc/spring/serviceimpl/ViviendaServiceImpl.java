@@ -15,48 +15,47 @@ import pe.edu.upc.spring.service.IViviendaService;
 public class ViviendaServiceImpl implements IViviendaService {
 
 	@Autowired
-	private IViviendaRepository dPet;
+	private IViviendaRepository dVivienda;
 	
 	@Override
 	@Transactional
 	public boolean grabar(Vivienda vivienda) {
-		Vivienda objVivienda = dPet.save(vivienda);
+		Vivienda objVivienda = dVivienda.save(vivienda);
 		if (objVivienda == null)
 			return false;
 		else
 			return true;
 	}
 
-
 	@Override
 	@Transactional
 	public void eliminar(int idVivienda) {
-		dPet.deleteById(idVivienda);		
+		dVivienda.deleteById(idVivienda);		
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Optional<Vivienda> listarId(int idVivienda) {
-		return dPet.findById(idVivienda);
+		return dVivienda.findById(idVivienda);
 	}
 	
 	@Override
 	@Transactional(readOnly = true)
 	public Optional<Vivienda> buscarId(int idVivienda) {
-		return dPet.findById(idVivienda);
+		return dVivienda.findById(idVivienda);
 	}
 
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Vivienda> listar() {
-		return dPet.findAll();
+		return dVivienda.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public List<Vivienda> buscarNombre(String NNombreVivienda) {
-		return dPet.buscarNombre(NNombreVivienda);
+		return dVivienda.buscarNombre(NNombreVivienda);
 	}
 	
 	

@@ -8,5 +8,5 @@ import pe.edu.upc.spring.model.Propietario;
 
 @Repository
 public interface IPropietarioRepository extends JpaRepository<Propietario, Integer>{
-
+	
 }
