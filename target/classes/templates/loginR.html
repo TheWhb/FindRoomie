@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8"></meta>
+<title>Login Roomie</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<link th:href="@{/styles/main.css}" rel="stylesheet" />
+
+
+<link href='https://fonts.googleapis.com/css?family=Be+Vietnam+Pro'
+	rel='stylesheet' type='text/css' />
+
+</head>
+
+<body>
+	<header>
+		<h1 class="logo_findr">FindRoomie</h1>
+		<div class="navigation">
+			<ul class="enlaces">
+				<li><a href="#" class="header-link">Inicio</a></li>
+				<li><a href="#" class="header-link">Sobre Nosotros</a></li>
+				<li><a href="#" class="header-link">Lugares</a></li>
+				<li><a href="#" class="header-link">Contacto</a></li>
+			</ul>
+		</div>
+	</header>
+	<main>
+		<div class="c-login-main">
+			<div></div>
+			<div class="d-derecha">
+				<div class="d-login">
+					<h1 class="t-login">Entra a la comunidad.</h1>
+					<br/>
+					<a href="#" class="l-propietarios">ir a Login para propietarios</a>
+					<br/><br/>
+					<p class="t-eresnuevo">
+						¿Eres nuevo?<a href="#" class="registrate-aqui"> Registrate
+							aquí.</a>
+					</p>
+					<br />
+					<form class="loginPP">
+						<label id="mailL" for="emailR">Email:</label><br/>
+						<input type="text" id="correoElectronico"></input>
+						<br/>
+						<br/>
+						<label id="passwL" for="passwordR">Contraseña:</label><br/>
+						<input type="password" id="contrasenia"></input>
+						<br/>
+						<br/>
+						<button type="submit" id="btnEntrar">Únete</button>
+					</form>
+
+
+
+
+
+				</div>
+			</div>
+		</div>
+
+
+	</main>
+</body>
+</html>
