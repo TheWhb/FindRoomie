@@ -20,8 +20,8 @@ import pe.edu.upc.spring.model.Vivienda;
 import pe.edu.upc.spring.model.Propietario;
 
 
-import pe.edu.upc.spring.service.IPropietarioService;
 import pe.edu.upc.spring.service.IViviendaService;
+import pe.edu.upc.spring.service.IPropietarioService;
 
 @Controller
 @RequestMapping("/vivienda")
@@ -30,7 +30,7 @@ public class ViviendaController {
 	private IPropietarioService rService;
 	
 	@Autowired
-	private IViviendaService pService;
+	private IViviendaService vService;
 	
 	
 	
@@ -40,9 +40,9 @@ public class ViviendaController {
 	}
 	
 	@RequestMapping("/")
-	public String irPaginaListadoMascotas(Map<String, Object> model) {
-		model.put("listaViviendas", pService.listar());
-		return "listViviendas"; // "listPet" es una pagina del frontEnd para listar
+	public String irPaginaListadoViviendas(Map<String, Object> model) {
+		model.put("listaViviendas", vService.listar());
+		return "listViviendas"; // "listViviendas" es una pagina del frontEnd para listar
 	}
 
 	@RequestMapping("/irRegistrar")
@@ -64,7 +64,7 @@ public class ViviendaController {
 			return "vivienda";
 		}
 		else {
-			boolean flag = pService.grabar(objVivienda);
+			boolean flag = vService.grabar(objVivienda);
 			if (flag)
 				return "redirect:/vivienda/listar";
 			else {
@@ -78,15 +78,15 @@ public class ViviendaController {
 	public String modificar(@PathVariable int id, Model model, RedirectAttributes objRedir) 
 		throws ParseException
 	{
-		Optional<Vivienda> objPet= pService.listarId(id);
-		if (objPet == null) {
+		Optional<Vivienda> objVivienda = vService.listarId(id);
+		if (objVivienda == null) {
 			objRedir.addFlashAttribute("mensaje", "Hazlo de nuevo");
 			return "redirect:/vivienda/listar";
 		}
 		else {
 			model.addAttribute("listaPropietarios", rService.listar());
-			if(objPet.isPresent())
-				objPet.ifPresent(o->model.addAttribute("vivienda", o));
+			if(objVivienda.isPresent())
+				objVivienda.ifPresent(o->model.addAttribute("vivienda", o));
 			return "vivienda";
 		}
 	}
@@ -95,21 +95,21 @@ public class ViviendaController {
 	public String eliminar(Map<String, Object> model,  @RequestParam(value="id") Integer id) {
 		try {
 			if (id!=null && id>0) {
-				pService.eliminar(id);
-				model.put("listaViviendas", pService.listar());
+				vService.eliminar(id);
+				model.put("listaViviendas", vService.listar());
 			}
 		}
 		catch(Exception ex) {
 			System.out.println(ex.getMessage());
 			model.put("mensaje", "Ocurrio un error");
-			model.put("listaViviendas", pService.listar());
+			model.put("listaViviendas", vService.listar());
 		}
 		return "listViviendas";
 	}
 		
 	@RequestMapping("/listar")
 	public String listar(Map<String, Object> model ) {
-		model.put("listaViviendas", pService.listar());
+		model.put("listaViviendas", vService.listar());
 		return "listViviendas";
 	}
 	
@@ -117,7 +117,7 @@ public class ViviendaController {
 	public String listarId(Map<String, Object> model, @ModelAttribute Vivienda vivienda)
 	throws ParseException
 	{
-		pService.listarId(vivienda.getIdVivienda());
+		vService.listarId(vivienda.getIdVivienda());
 		return "listViviendas";
 	}
 	
@@ -133,7 +133,11 @@ public class ViviendaController {
 	{
 		List<Vivienda> listaViviendas;
 		vivienda.setNNombreVivienda(vivienda.getNNombreVivienda());
-		listaViviendas = pService.buscarNombre(vivienda.getNNombreVivienda());
+		listaViviendas = vService.buscarNombre(vivienda.getNNombreVivienda());
+		
+		if (listaViviendas.isEmpty()) {
+			model.put("mensaje", "No existen coincidencias");
+		}
 		
 		model.put("listaViviendas", "listaViviendas");
 		return "buscar";

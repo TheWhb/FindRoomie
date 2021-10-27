@@ -36,9 +36,6 @@ public class Propietario implements Serializable {
 	@Column(name="UsernamePropietario", length=60, nullable=false)
 	private String UsernamePropietario;
 	
-	@Column(name="PerfilPropietario", length=60, nullable=false)
-	private String PerfilPropietario;
-	
 	@Temporal(TemporalType.DATE)
 	@Column(name ="DNacimientoPropietario")
 	@DateTimeFormat(pattern ="yyyy-MM-dd")
@@ -67,7 +64,7 @@ public class Propietario implements Serializable {
 	}
 
 	public Propietario(int idPropietario, String nPropietario, String aPropietario, int dNIPropietario,
-			String usernamePropietario, String perfilPropietario, Date dNacimientoPropietario, String generoPropietario,
+			String usernamePropietario, Date dNacimientoPropietario, String generoPropietario,
 			int nroCelularPropietario, String emailPropietario, String nacionalidadPropietario,
 			String presentacionPropietario, String contraseñaPropietario) {
 		super();
@@ -76,7 +73,6 @@ public class Propietario implements Serializable {
 		APropietario = aPropietario;
 		DNIPropietario = dNIPropietario;
 		UsernamePropietario = usernamePropietario;
-		PerfilPropietario = perfilPropietario;
 		DNacimientoPropietario = dNacimientoPropietario;
 		GeneroPropietario = generoPropietario;
 		NroCelularPropietario = nroCelularPropietario;
@@ -124,14 +120,6 @@ public class Propietario implements Serializable {
 
 	public void setUsernamePropietario(String usernamePropietario) {
 		UsernamePropietario = usernamePropietario;
-	}
-
-	public String getPerfilPropietario() {
-		return PerfilPropietario;
-	}
-
-	public void setPerfilPropietario(String perfilPropietario) {
-		PerfilPropietario = perfilPropietario;
 	}
 
 	public Date getDNacimientoPropietario() {

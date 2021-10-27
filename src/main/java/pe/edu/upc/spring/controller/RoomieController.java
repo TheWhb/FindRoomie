@@ -15,14 +15,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sun.el.parser.ParseException;
 
-import pe.edu.upc.spring.model.Propietario;
-import pe.edu.upc.spring.service.IPropietarioService;
+import pe.edu.upc.spring.model.Roomie;
+import pe.edu.upc.spring.model.Vivienda;
+
+import pe.edu.upc.spring.service.IRoomieService;
+import pe.edu.upc.spring.service.IViviendaService;
 
 @Controller
-@RequestMapping("/propietario/")
-public class PropietarioController {
+@RequestMapping("/roomie/")
+public class RoomieController {
 	@Autowired
-	private IPropietarioService rService;
+	private IRoomieService rService;
+	
+	@Autowired
+	private IViviendaService vService;
 	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
@@ -30,30 +36,31 @@ public class PropietarioController {
 	}
 	
 	@RequestMapping("/")
-	public String irPaginaListadoPropietarios(Map<String, Object> model) {
-		model.put("listaPropietarios", rService.listar());
-		return "listPropietarios"; // "listPropietarios" es una pagina del frontEnd para listar
+	public String irPaginaListadoRoomies(Map<String, Object> model) {
+		model.put("listaRoomies", rService.listar());
+		return "listRoomies"; // "listRoomies" es una pagina del frontEnd para listar
 	}
 
 	@RequestMapping("/irRegistrar")
 	public String irPaginaRegistrar(Model model) {
-		model.addAttribute("propietario", new Propietario());
-		return "propietario"; // "propietario" es una pagina del frontEnd para insertar y/o modificar
+		model.addAttribute("roomie", new Roomie());
+		return "roomie"; // "roomie" es una pagina del frontEnd para insertar y/o modificar
 	}
 	
 	@RequestMapping("/registrar")
-	public String registrar(@ModelAttribute Propietario objPropietario, BindingResult binRes, Model model) 
+	public String registrar(@ModelAttribute Roomie objRoomie, BindingResult binRes, Model model) 
 		throws ParseException
 	{
 		if (binRes.hasErrors())
-			return "propietario";
+			return "roomie";
 		else {
-			boolean flag = rService.grabar(objPropietario);
+			objRoomie.setViviendaRoomie(null);
+			boolean flag = rService.grabar(objRoomie);
 			if (flag)
-				return "redirect:/propietario/listar";
+				return "redirect:/roomie/listar";
 			else {
 				model.addAttribute("mensaje", "No se pudo acceder");
-				return "redirect:/propietario/irRegistrar";
+				return "redirect:/roomie/irRegistrar";
 			}
 		}
 	}
@@ -62,14 +69,14 @@ public class PropietarioController {
 	public String modificar(@PathVariable int id, Model model, RedirectAttributes objRedir) 
 		throws ParseException
 	{
-		Optional<Propietario> objPropietario = rService.listarId(id);
-		if (objPropietario == null) {
+		Optional<Roomie> objRoomie = rService.listarId(id);
+		if (objRoomie == null) {
 			objRedir.addFlashAttribute("mensaje", "No se pudo acceder");
 			return "redirect:/propietario/listar";
 		}
 		else {
-			model.addAttribute("propietario", objPropietario);
-			return "propietario";
+			model.addAttribute("roomie", objRoomie);
+			return "roomie";
 		}
 	}
 		
@@ -78,21 +85,21 @@ public class PropietarioController {
 		try {
 			if (id!=null && id>0) {
 				rService.eliminar(id);
-				model.put("listaPropietarios", rService.listar());
+				model.put("listaRoomies", rService.listar());
 			}
 		}
 		catch(Exception ex) {
 			System.out.println(ex.getMessage());
 			model.put("mensaje", "Ocurrio un error");
-			model.put("listaPropietarios", rService.listar());
+			model.put("listaRoomies", rService.listar());
 		}
-		return "listPropietarios";
+		return "listRoomies";
 	}
 		
 	@RequestMapping("/listar")
 	public String listar(Map<String, Object> model ) {
-		model.put("listaPropietarios", rService.listar());
-		return "listPropietarios";
+		model.put("listaRoomies", rService.listar());
+		return "listRoomies";
 	}
 	
 }
