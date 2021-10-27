@@ -27,7 +27,6 @@ public class PropietarioServiceImpl implements IPropietarioService {
 			return true;
 	}
 
-
 	@Override
 	@Transactional
 	public void eliminar(int idPropietario) {
