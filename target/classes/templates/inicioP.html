@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8"></meta>
+<title>Inicio Propietario</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<link th:href="@{/styles/main.css}" rel="stylesheet" />
+
+
+<link href='https://fonts.googleapis.com/css?family=Be+Vietnam+Pro'
+	rel='stylesheet' type='text/css' />
+
+</head>
+
+<body>
+	<header>
+		<h1 class="logo_findr">FindRoomie</h1>
+		<div class="navigation">
+			<ul class="enlaces">
+				<li><a href="#" class="header-link">Inicio</a></li>
+				<li><a href="#" class="header-link">Sobre Nosotros</a></li>
+				<li><a href="#" class="header-link">Lugares</a></li>
+				<li><a href="#" class="header-link">Contacto</a></li>
+				<li><a href="#" class="header-link">Configuración</a></li>
+				<li><a href="#" class="btn-sus1">Premium</a></li>
+				
+				
+			</ul>
+		</div>
+	</header>
+	<main>
+	<div class="c-main-p">
+		<div class="c-inicio-p">
+				<div class="i-izq">
+				<h1>Mis viviendas</h1>
+				
+					<table id="viviendas">
+						<thead>
+							<tr>
+								<th>DESCRIPCION</th>
+								<th>DIRECCION</th>
+								<th>NCUARTOS</th>
+								<th>NBAÑOS</th>
+								<th>NPISOS</th>
+								<th>NPERSONAS</th>
+								<th>OPERACION</th>
+								<th>OPERACION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="due: ${listaDuenos}">
+								<td th:text="${due.idDueno}"></td>
+								<td th:text="${due.nameOwner}"></td>
+								<td><a th:href="@{/dueno/eliminar?id=}+${due.idDueno}">Eliminar</a></td>
+								<td><a th:href="@{'/dueno/modificar/'}+${due.idDueno}">Modificar</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="i-dere">
+					<h1>Bienvenido, "insertar nombre"</h1>
+				</div>
+
+			</div>
+		<div class="circle1"></div>
+		<div class="circle2"></div>
+		
+		
+	
+	</div>
+
+
+	</main>
+</body>
+</html>
