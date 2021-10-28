@@ -551,6 +551,14 @@ input[type="text"], input[type="date"]
 	z-index: 1;
 
 }
+.circle3, .circle4{
+	height: 15rem;
+	width: 15rem;
+	border-radius:50%;
+	position: absolute;
+	z-index: 1;
+
+}
 .circle1{
 	background:#F6AE2D;
 	top:5%;
@@ -560,6 +568,16 @@ input[type="text"], input[type="date"]
 	background: #33658A;
 	bottom:-5%;
 	right:25%;
+}
+.circle3{
+	background:#93bbff;
+	top:25%;
+	left:45%;
+}
+.circle4{
+	background: #ff8040;
+	bottom:15%;
+	right:55%;
 }
 
 .registro1R {
@@ -633,6 +651,7 @@ height: 36px;
 #btn-RE-registroR {
 	font-size: 16px;
 	border: none;
+	text-decoration:none;
 	font-family: 'Be Vietnam Pro';
 	color: white;
 	font-weight: 700;
