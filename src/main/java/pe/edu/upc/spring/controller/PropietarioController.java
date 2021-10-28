@@ -19,7 +19,7 @@ import pe.edu.upc.spring.model.Propietario;
 import pe.edu.upc.spring.service.IPropietarioService;
 
 @Controller
-@RequestMapping("/propietario/")
+@RequestMapping("/propietario")
 public class PropietarioController {
 	@Autowired
 	private IPropietarioService rService;
@@ -35,10 +35,16 @@ public class PropietarioController {
 		return "listPropietarios"; // "listPropietarios" es una pagina del frontEnd para listar
 	}
 
+	@RequestMapping("/irLogin")
+	public String irPaginaLogin() {
+		
+		return "loginP";
+	}
+	
 	@RequestMapping("/irRegistrar")
 	public String irPaginaRegistrar(Model model) {
 		model.addAttribute("propietario", new Propietario());
-		return "propietario"; // "propietario" es una pagina del frontEnd para insertar y/o modificar
+		return "registroP"; // "propietario" es una pagina del frontEnd para insertar y/o modificar
 	}
 	
 	@RequestMapping("/registrar")
@@ -46,11 +52,11 @@ public class PropietarioController {
 		throws ParseException
 	{
 		if (binRes.hasErrors())
-			return "propietario";
+			return "registroP";
 		else {
 			boolean flag = rService.grabar(objPropietario);
 			if (flag)
-				return "redirect:/propietario/listar";
+				return "redirect:/propietario/irLogin";
 			else {
 				model.addAttribute("mensaje", "No se pudo acceder");
 				return "redirect:/propietario/irRegistrar";
