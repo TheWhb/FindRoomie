@@ -36,26 +36,26 @@
 					<h2>Registro</h2>
 					<label id="l-RE-NombresCompletos" for="names">Nombres Completos</label><br/>
 					<input type="text" id="i-RE-nombrescompletos" placeholder="ej: Juan Pedro"
-					th:field="*{NPropietario}" maxlength="60">
+					th:field="*{NPropietario}" maxlength="60"/>
 					<br/>
 					<br/>
 					<label id="l-RE-ApellidosCompletos" for="apellidos">Apellidos Completos</label><br/>
 					<input type="text" id="i-RE-apellidoscompletos" placeholder="ej: Perez Quispe" 
-					th:field="*{APropietario}" maxlength="60">
+					th:field="*{APropietario}" maxlength="60"/>
 					<br/>
 					<br/>
 					<label id="l-RE-username" for="username">Nombre de usuario</label><br/>
 					<input type="text" id="i-RE-username" th:field="*{UsernamePropietario}"
-					maxlength="60">
+					maxlength="60"/>
 					<br/>
 					<br/>
 					<label id="l-RE-fnacimiento" for="date">Fecha de nacimiento</label><br/>
-					<input type="date" id="ca-RE-fnacimiento" th:field="*{DNacimientoPropietario}">
+					<input type="date" id="ca-RE-fnacimiento" th:field="*{DNacimientoPropietario}"/>
 					<br/>
 					<br/>
 					<label id="l-RE-nrocelular"  for="nrocel">Nro de celular</label><br/>
 					<input type="text" id="i-RE-nrocelular" onkeypress="return isNumberKey(event)" 
-					th:field="*{NroCelularPropietario}" maxlength="9">
+					th:field="*{NroCelularPropietario}" maxlength="9"/>
 					<script>
 						function isNumberKey(evt)
 						{
