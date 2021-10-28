@@ -23,7 +23,7 @@ import pe.edu.upc.spring.service.ISuscripcionService;
 import pe.edu.upc.spring.service.IPropietarioService;
 
 @Controller
-@RequestMapping("/SuscripcionXRoomie/")
+@RequestMapping("/SuscripcionXPropietario/")
 public class SuscripcionXPropietarioController {
 	@Autowired
 	private ISuscripcionXPropietarioService srService;
