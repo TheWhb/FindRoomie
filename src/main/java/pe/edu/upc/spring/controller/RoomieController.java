@@ -58,12 +58,12 @@ public class RoomieController {
 		throws ParseException
 	{
 		if (binRes.hasErrors())
-			return "roomie";
+			return "registroR";
 		else {
 			objRoomie.setViviendaRoomie(null);
 			boolean flag = rService.grabar(objRoomie);
 			if (flag)
-				return "redirect:/roomie/listar";
+				return "redirect:/roomie/irLogin";
 			else {
 				model.addAttribute("mensaje", "No se pudo acceder");
 				return "redirect:/roomie/irRegistrar";

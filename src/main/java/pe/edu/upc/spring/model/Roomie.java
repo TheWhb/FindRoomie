@@ -46,7 +46,7 @@ public class Roomie implements Serializable {
 	@Column(name="GeneroRoomie", length=10, nullable=false)
 	private String GeneroRoomie;
 	
-	@Column(name="NroCelularRoomie", length=8, nullable=false)
+	@Column(name="NroCelularRoomie", length=9, nullable=false)
 	private int NroCelularRoomie;
 	
 	@Column(name="EmailRoomie", length=30, nullable=false)
