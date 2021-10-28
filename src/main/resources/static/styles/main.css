@@ -6,6 +6,7 @@ body {
 	font-family: "Be Vietnam Pro";
 	color: black;
 	text-align: center;
+	background: #F7FCFF;
 }
 #b-landing{
 	margin-top:4rem;
@@ -111,25 +112,40 @@ header {
 }
 
 .c-sus {
-	position: relative;
+	background-image:url('../imagenes/premiumbg.png');
+	width:85%;
+	margin: 0 auto;
+	margin-top:4.7em;
+	background-size:100% 100%;
+	height:800px;
+	display:flex;
+	justify-content: space-around;
+	align-items: center;
 }
 
-.aux-sus {
-	position: absolute;
-	margin: -310px 60px;
+.aux11{
+	margin-bottom: 60px;
+}
+.aux12{
+	
+	width:500px;
+
 }
 
 .btn-m-sus {
 	font-weight: 800;
-	font-size: 25px;
-	padding: 10px 25px 10px 25px;
-	border-radius: 25px;
+	font-size: 35px;
+	padding: 10px 25px;
+	border-radius: 30px;
 	background: #F6AE2D;
 	color: white;
 	text-decoration: none;
 	z-index: 999;
 }
-
+.btn-m-sus:hover{
+	box-shadow: 0px 3px 17px #F28D1978;
+	
+}
 .logo_findr {
 	color: #394B73;
 	font-size: 20px;
