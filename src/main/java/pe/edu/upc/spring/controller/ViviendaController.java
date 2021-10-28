@@ -41,6 +41,7 @@ public class ViviendaController {
 	
 	@RequestMapping("/InicioP")
 	public String irPaginaListadoViviendas(Map<String, Object> model) {
+		model.put("mensajeBien", ", propietario");
 		model.put("listaViviendas", vService.listar());
 		return "inicioP"; // "listViviendas" es una pagina del frontEnd para listar
 	}
@@ -96,6 +97,7 @@ public class ViviendaController {
 		try {
 			if (id!=null && id>0) {
 				vService.eliminar(id);
+				model.put("mensaje", "Eliminado");
 				model.put("listaViviendas", vService.listar());
 			}
 		}

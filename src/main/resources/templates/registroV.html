@@ -34,6 +34,15 @@
 			<form class="registroRR" th:action="@{/vivienda/registrar}" method="post" th:object="${vivienda}">
 				<div>
 					<h2>Registro de Vivienda</h2>
+					<label for="nombre">Propietario</label>
+    					<select id="cbo-RE-genero" th:field="*{propietarioVivienda.idPropietario}">
+	    					<option th:each="r: ${listaPropietarios}"
+	    							th:value="${r.idPropietario}"	
+	    							th:text="${r.NPropietario}">
+	    					</option>
+    					</select>
+    				<br/>
+					<br/>	
 					<label id="l-RV-nombrevivienda" for="nameV">Descripcion</label><br/>
 					<input type="text" id="i-RV-nombrevivienda" maxlength="20" th:field="*{NNombreVivienda}">
 					<br/>
@@ -46,14 +55,7 @@
 					<input type="number" id="i-RV-nrocuartos" max="10" th:field="*{NCuartosVivienda}">
 					<br/>
 					<br/>
-					
-					<label for="nombre">Propietario</label>
-    					<select class ="form-control" th:field="*{propietarioVivienda.idPropietario}">
-	    					<option th:each="r: ${listaPropietarios}"
-	    							th:value="${r.idPropietario}">		
-	    					</option>
-    					</select>
-					
+										
 				</div>
 				<div>
 					<br/>

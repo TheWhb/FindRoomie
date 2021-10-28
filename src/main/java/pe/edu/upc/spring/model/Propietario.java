@@ -41,7 +41,7 @@ public class Propietario implements Serializable {
 	@DateTimeFormat(pattern ="yyyy-MM-dd")
 	private Date DNacimientoPropietario;
 	
-	@Column(name="GeneroPropietario", length=10, nullable=false)
+	@Column(name="GeneroPropietario", length=12, nullable=false)
 	private String GeneroPropietario;
 	
 	@Column(name="NroCelularPropietario", length=9, nullable=false)
