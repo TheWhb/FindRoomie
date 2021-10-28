@@ -56,7 +56,7 @@ public class PropietarioController {
 		else {
 			boolean flag = rService.grabar(objPropietario);
 			if (flag)
-				return "redirect:/propietario/irLogin";
+				return "redirect:/vivienda/irRegistrar";
 			else {
 				model.addAttribute("mensaje", "No se pudo acceder");
 				return "redirect:/propietario/irRegistrar";
