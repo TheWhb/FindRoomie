@@ -39,10 +39,10 @@ public class ViviendaController {
 		return "bienvenido"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
 	}
 	
-	@RequestMapping("/")
+	@RequestMapping("/InicioP")
 	public String irPaginaListadoViviendas(Map<String, Object> model) {
 		model.put("listaViviendas", vService.listar());
-		return "listViviendas"; // "listViviendas" es una pagina del frontEnd para listar
+		return "inicioP"; // "listViviendas" es una pagina del frontEnd para listar
 	}
 
 	@RequestMapping("/irRegistrar")
@@ -51,7 +51,7 @@ public class ViviendaController {
 
 		model.addAttribute("vivienda", new Vivienda());
 		model.addAttribute("propietario", new Propietario());
-		return "vivienda"; // "pet" es una pagina del frontEnd para insertar y/o modificar
+		return "registroV"; // "pet" es una pagina del frontEnd para insertar y/o modificar
 	}
 	
 	@RequestMapping("/registrar")
@@ -61,12 +61,12 @@ public class ViviendaController {
 		if (binRes.hasErrors())
 		{
 			model.addAttribute("listaPropietarios", rService.listar());
-			return "vivienda";
+			return "registroV";
 		}
 		else {
 			boolean flag = vService.grabar(objVivienda);
 			if (flag)
-				return "redirect:/vivienda/listar";
+				return "redirect:/vivienda/InicioP";
 			else {
 				model.addAttribute("mensaje", "Hazlo de nuevo");
 				return "redirect:/vivienda/irRegistrar";
@@ -81,13 +81,13 @@ public class ViviendaController {
 		Optional<Vivienda> objVivienda = vService.listarId(id);
 		if (objVivienda == null) {
 			objRedir.addFlashAttribute("mensaje", "Hazlo de nuevo");
-			return "redirect:/vivienda/listar";
+			return "redirect:/vivienda/InicioP";
 		}
 		else {
 			model.addAttribute("listaPropietarios", rService.listar());
 			if(objVivienda.isPresent())
 				objVivienda.ifPresent(o->model.addAttribute("vivienda", o));
-			return "vivienda";
+			return "registroV";
 		}
 	}
 		
@@ -104,7 +104,7 @@ public class ViviendaController {
 			model.put("mensaje", "Ocurrio un error");
 			model.put("listaViviendas", vService.listar());
 		}
-		return "listViviendas";
+		return "inicioP";
 	}
 		
 	@RequestMapping("/listar")
