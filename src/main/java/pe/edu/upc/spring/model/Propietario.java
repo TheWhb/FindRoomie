@@ -44,7 +44,7 @@ public class Propietario implements Serializable {
 	@Column(name="GeneroPropietario", length=10, nullable=false)
 	private String GeneroPropietario;
 	
-	@Column(name="NroCelularPropietario", length=8, nullable=false)
+	@Column(name="NroCelularPropietario", length=9, nullable=false)
 	private int NroCelularPropietario;
 	
 	@Column(name="EmailPropietario", length=30, nullable=false)
@@ -52,9 +52,6 @@ public class Propietario implements Serializable {
 	
 	@Column(name="NacionalidadPropietario", length=30, nullable=false)
 	private String NacionalidadPropietario;
-
-	@Column(name="PresentacionPropietario", length=200, nullable=false)
-	private String PresentacionPropietario;
 	
 	@Column(name="ContraseñaPropietario", length=10, nullable=false)
 	private String ContraseñaPropietario;
@@ -66,7 +63,7 @@ public class Propietario implements Serializable {
 	public Propietario(int idPropietario, String nPropietario, String aPropietario, int dNIPropietario,
 			String usernamePropietario, Date dNacimientoPropietario, String generoPropietario,
 			int nroCelularPropietario, String emailPropietario, String nacionalidadPropietario,
-			String presentacionPropietario, String contraseñaPropietario) {
+			String contraseñaPropietario) {
 		super();
 		this.idPropietario = idPropietario;
 		NPropietario = nPropietario;
@@ -78,7 +75,6 @@ public class Propietario implements Serializable {
 		NroCelularPropietario = nroCelularPropietario;
 		EmailPropietario = emailPropietario;
 		NacionalidadPropietario = nacionalidadPropietario;
-		PresentacionPropietario = presentacionPropietario;
 		ContraseñaPropietario = contraseñaPropietario;
 	}
 
@@ -160,14 +156,6 @@ public class Propietario implements Serializable {
 
 	public void setNacionalidadPropietario(String nacionalidadPropietario) {
 		NacionalidadPropietario = nacionalidadPropietario;
-	}
-
-	public String getPresentacionPropietario() {
-		return PresentacionPropietario;
-	}
-
-	public void setPresentacionPropietario(String presentacionPropietario) {
-		PresentacionPropietario = presentacionPropietario;
 	}
 
 	public String getContraseñaPropietario() {

@@ -22,7 +22,7 @@ import pe.edu.upc.spring.service.IRoomieService;
 import pe.edu.upc.spring.service.IViviendaService;
 
 @Controller
-@RequestMapping("/roomie/")
+@RequestMapping("/roomie")
 public class RoomieController {
 	@Autowired
 	private IRoomieService rService;
@@ -41,10 +41,16 @@ public class RoomieController {
 		return "listRoomies"; // "listRoomies" es una pagina del frontEnd para listar
 	}
 
+	@RequestMapping("/irLogin")
+	public String irPaginaLogin() {
+		
+		return "loginR";
+	}
+	
 	@RequestMapping("/irRegistrar")
 	public String irPaginaRegistrar(Model model) {
 		model.addAttribute("roomie", new Roomie());
-		return "roomie"; // "roomie" es una pagina del frontEnd para insertar y/o modificar
+		return "registroR"; // "roomie" es una pagina del frontEnd para insertar y/o modificar
 	}
 	
 	@RequestMapping("/registrar")
