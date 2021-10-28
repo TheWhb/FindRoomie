@@ -21,7 +21,7 @@
 		<h1 class="logo_findr">FindRoomie</h1>
 		<div class="navigation">
 			<ul class="enlaces">
-				<li><a href="#" class="header-link">Inicio</a></li>
+				<li><a th:href="@{/roomie/bienvenido}" class="header-link">Inicio</a></li>
 				<li><a href="#" class="header-link">Sobre Nosotros</a></li>
 				<li><a href="#" class="header-link">Lugares</a></li>
 				<li><a href="#" class="header-link">Contacto</a></li>
@@ -35,10 +35,10 @@
 				<div class="d-login">
 					<h1 class="t-login">Entra a la comunidad.</h1>
 					<br/>
-					<a href="#" class="l-propietarios">ir a Login para propietarios</a>
+					<a th:href="@{/propietario/irLogin}" class="l-propietarios">ir a Login para propietarios</a>
 					<br/><br/>
 					<p class="t-eresnuevo">
-						¿Eres nuevo?<a href="#" class="registrate-aqui"> Registrate
+						¿Eres nuevo?<a th:href="@{/roomie/irRegistrar}" class="registrate-aqui"> Registrate
 							aquí.</a>
 					</p>
 					<br />
