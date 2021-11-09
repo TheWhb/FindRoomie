@@ -21,7 +21,7 @@
 		<h1 class="logo_findr">FindRoomie</h1>
 		<div class="navigation">
 			<ul class="enlaces">
-				<li><a href="#" class="header-link">Inicio</a></li>
+				<li><a th:href="@{/bienvenido}" class="header-link">Inicio</a></li>
 				<li><a href="#" class="header-link">Sobre Nosotros</a></li>
 				<li><a href="#" class="header-link">Lugares</a></li>
 				<li><a href="#" class="header-link">Contacto</a></li>
@@ -31,27 +31,27 @@
 	<main>
 	<div class="c-main-registro">
 		<div class="registro1R">
-			<form class="registroRR">
+			<form class="registroRR" th:action="@{/roomie/registrar}" method="post" th:object="${roomie}">
 				<div>
 					<h2>Registro</h2>
 					<label id="l-RE-NombresCompletos" for="names">Nombres Completos</label><br/>
-					<input type="text" id="i-RE-nombrescompletos" placeholder="ej: Juan Pedro" >
+					<input type="text" id="i-RE-nombrescompletos" placeholder="ej: Juan Pedro" th:field="*{NRoomie}" maxlength="60">
 					<br/>
 					<br/>
 					<label id="l-RE-ApellidosCompletos" for="apellidos">Apellidos Completos</label><br/>
-					<input type="text" id="i-RE-apellidoscompletos" placeholder="ej: Perez Quispe">
+					<input type="text" id="i-RE-apellidoscompletos" placeholder="ej: Perez Quispe" th:field="*{ARoomie}" maxlength="60">
 					<br/>
 					<br/>
 					<label id="l-RE-username" for="username">Nombre de usuario</label><br/>
-					<input type="text" id="i-RE-username">
+					<input type="text" id="i-RE-username" th:field="*{UsernameRoomie}" maxlength="60">
 					<br/>
 					<br/>
 					<label id="l-RE-fnacimiento" for="date">Fecha de nacimiento</label><br/>
-					<input type="date" id="ca-RE-fnacimiento">
+					<input type="date" id="ca-RE-fnacimiento" th:field="*{DNacimientoRoomie}">
 					<br/>
 					<br/>
 					<label id="l-RE-nrocelular"  for="nrocel">Nro de celular</label><br/>
-					<input type="text" id="i-RE-nrocelular" onkeypress="return isNumberKey(event)">
+					<input type="text" id="i-RE-nrocelular" onkeypress="return isNumberKey(event)" th:field="*{NroCelularRoomie}" maxlength="9">
 					<script>
 						function isNumberKey(evt)
 						{
@@ -67,11 +67,11 @@
 				</div>
 				<div>
 					<label id="l-RE-email" for="names">Email</label><br/>
-					<input type="text" id="i-RE-email" placeholder="ej: juanpedro@ejemplo.com" >
+					<input type="text" id="i-RE-email" placeholder="ej: juanpedro@ejemplo.com" th:field="*{EmailRoomie}" maxlength="30">
 					<br/>
 					<br/>
 					<label id="l-RE-genero" for="genero">Género</label><br/>
-					<select id="cbo-RE-genero" name="genero">
+					<select id="cbo-RE-genero" name="genero" th:field="*{GeneroRoomie}">
 	    					<option value="1">Hombre</option>
 	    					<option value="2">Mujer</option>
 	    					<option value="3">Helicóptero Boeing AH-64 Apache</option>
@@ -79,11 +79,11 @@
 					<br/>
 					<br/>
 					<label id="l-RE-nacionalidad" for="nacionalidad">Nacionalidad</label><br/>
-					<input type="text" id="i-RE-nacionalidad">
+					<input type="text" id="i-RE-nacionalidad" th:field="*{NacionalidadRoomie}" maxlength="30">
 					<br/>
 					<br/>
 					<label id="l-RE-DNI"  for="dni">DNI</label><br/>
-					<input type="text" id="i-RE-DNI" onkeypress="return isNumberKeyy(event)">
+					<input type="text" id="i-RE-DNI" onkeypress="return isNumberKeyy(event)" th:field="*{DNIRoomie}" maxlength="8">
 					<script>
 						function isNumberKeyy(evt)
 						{
@@ -110,6 +110,10 @@
 					  }
 					}
 					</script>
+					<br/>
+					<br/>
+					<label id="l-RE-username" for="username">Presentación</label><br/>
+					<textarea rows="5" cols="80" id="i-RE-username" th:field="*{PresentacionRoomie}" maxlength="200"></textarea>
 
 					<br/>
 					<br/>
