@@ -21,7 +21,7 @@
 		<h1 class="logo_findr">FindRoomie</h1>
 		<div class="navigation">
 			<ul class="enlaces">
-				<li><a th:href="@{/propietario/bienvenido}" class="header-link">Inicio</a></li>
+				<li><a href="#" class="header-link">Inicio</a></li>
 				<li><a href="#" class="header-link">Sobre Nosotros</a></li>
 				<li><a href="#" class="header-link">Lugares</a></li>
 				<li><a href="#" class="header-link">Contacto</a></li>
@@ -31,31 +31,27 @@
 	<main>
 	<div class="c-main-registro">
 		<div class="registro1R">
-			<form class="registroRR" th:action="@{/propietario/registrar}" method="post" th:object="${propietario}">
+			<form class="registroRR">
 				<div>
 					<h2>Registro</h2>
 					<label id="l-RE-NombresCompletos" for="names">Nombres Completos</label><br/>
-					<input type="text" id="i-RE-nombrescompletos" placeholder="ej: Juan Pedro"
-					th:field="*{NPropietario}" maxlength="60"/>
+					<input type="text" id="i-RE-nombrescompletos" placeholder="ej: Juan Pedro" >
 					<br/>
 					<br/>
 					<label id="l-RE-ApellidosCompletos" for="apellidos">Apellidos Completos</label><br/>
-					<input type="text" id="i-RE-apellidoscompletos" placeholder="ej: Perez Quispe" 
-					th:field="*{APropietario}" maxlength="60"/>
+					<input type="text" id="i-RE-apellidoscompletos" placeholder="ej: Perez Quispe">
 					<br/>
 					<br/>
 					<label id="l-RE-username" for="username">Nombre de usuario</label><br/>
-					<input type="text" id="i-RE-username" th:field="*{UsernamePropietario}"
-					maxlength="60"/>
+					<input type="text" id="i-RE-username">
 					<br/>
 					<br/>
 					<label id="l-RE-fnacimiento" for="date">Fecha de nacimiento</label><br/>
-					<input type="date" id="ca-RE-fnacimiento" th:field="*{DNacimientoPropietario}"/>
+					<input type="date" id="ca-RE-fnacimiento">
 					<br/>
 					<br/>
 					<label id="l-RE-nrocelular"  for="nrocel">Nro de celular</label><br/>
-					<input type="text" id="i-RE-nrocelular" onkeypress="return isNumberKey(event)" 
-					th:field="*{NroCelularPropietario}" maxlength="9"/>
+					<input type="text" id="i-RE-nrocelular" onkeypress="return isNumberKey(event)">
 					<script>
 						function isNumberKey(evt)
 						{
@@ -71,26 +67,23 @@
 				</div>
 				<div>
 					<label id="l-RE-email" for="names">Email</label><br/>
-					<input type="text" id="i-RE-email" placeholder="ej: juanpedro@ejemplo.com" 
-					th:field="*{EmailPropietario}" maxlength="30">
+					<input type="text" id="i-RE-email" placeholder="ej: juanpedro@ejemplo.com" >
 					<br/>
 					<br/>
 					<label id="l-RE-genero" for="genero">Género</label><br/>
-					<select id="cbo-RE-genero" name="genero" th:field="*{GeneroPropietario}">
-	    					<option value="Hombre">Hombre</option>
-	    					<option value="Mujer">Mujer</option>
-	    					<option value="Helicóptero">Helicóptero Boeing AH-64 Apache</option>
+					<select id="cbo-RE-genero" name="genero">
+	    					<option value="1">Hombre</option>
+	    					<option value="2">Mujer</option>
+	    					<option value="3">Helicóptero Boeing AH-64 Apache</option>
     					</select>
 					<br/>
 					<br/>
 					<label id="l-RE-nacionalidad" for="nacionalidad">Nacionalidad</label><br/>
-					<input type="text" id="i-RE-nacionalidad" th:field="*{NacionalidadPropietario}"
-					maxlength="30">
+					<input type="text" id="i-RE-nacionalidad">
 					<br/>
 					<br/>
 					<label id="l-RE-DNI"  for="dni">DNI</label><br/>
-					<input type="text" id="i-RE-DNI" onkeypress="return isNumberKeyy(event)" 
-					th:field="*{DNIPropietario}" maxlength="8">
+					<input type="text" id="i-RE-DNI" onkeypress="return isNumberKeyy(event)">
 					<script>
 						function isNumberKeyy(evt)
 						{
@@ -104,8 +97,7 @@
 					<br/>
 					<br/>
 					<label id="l-RE-password" for="password">Contraseña</label><br/>
-					<input type="password" id="i-RE-password" th:field="*{ContraseñaPropietario}"
-					maxlength="10"><br><br>
+					<input type="password" id="i-RE-password"><br><br>
 					<input type="checkbox" onclick="showPassword()">Mostrar contraseña
 					
 					<script>
@@ -136,46 +128,8 @@
 		
 	
 	</div>
-	
-	
-	
-	
-	
-<!-- 		<div class="c-login-main"> -->
-<!-- 			<img th:src="@{/imagenes/bg-register.png}" alt="bgregister" -->
-<!-- 				id="bg-register"> -->
-<!-- 			<div class="d-derecha"> -->
-<!-- 				<div class="d-login"> -->
-<!-- 					<h1 class="t-login">Entra a la comunidad.</h1> -->
-<!-- 					<br/> -->
-<!-- 					<a href="#" class="l-propietarios">ir a Login para roomies</a> -->
-<!-- 					<br/><br/> -->
-<!-- 					<p class="t-eresnuevo"> -->
-<!-- 						¿Eres nuevo?<a href="#" class="registrate-aqui"> Registrate -->
-<!-- 							aquí.</a> -->
-<!-- 					</p> -->
-<!-- 					<br /> -->
-<!-- 					<form class="loginPP"> -->
-<!-- 						<label id="mailL" for="emailR">Email:</label><br/> -->
-<!-- 						<input type="text" id="correoElectronico"></input> -->
-<!-- 						<br/> -->
-<!-- 						<br/> -->
-<!-- 						<label id="passwL" for="passwordR">Contraseña:</label><br/> -->
-<!-- 						<input type="password" id="contrasenia"></input> -->
-<!-- 						<br/> -->
-<!-- 						<br/> -->
-<!-- 						<button type="submit" id="btnEntrar">Únete</button> -->
-<!-- 					</form> -->
-
-
-
-
-
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-
-
 	</main>
+	<div th:replace="fragments/footer :: footer"></div>
+
 </body>
 </html>
