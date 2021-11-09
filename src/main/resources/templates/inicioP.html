@@ -21,7 +21,7 @@
 		<h1 class="logo_findr">FindRoomie</h1>
 		<div class="navigation">
 			<ul class="enlaces">
-				<li><a href="#" class="header-link">Inicio</a></li>
+				<li><a th:href="@{/bienvenido}" class="header-link">Inicio</a></li>
 				<li><a href="#" class="header-link">Sobre Nosotros</a></li>
 				<li><a href="#" class="header-link">Lugares</a></li>
 				<li><a href="#" class="header-link">Contacto</a></li>
@@ -36,10 +36,11 @@
 	<div class="c-main-p">
 		<div class="c-inicio-p">
 				<div class="i-izq">
-				<h1>Mis viviendas</h1><br/>
-				<a 	id="btn-RE-registroR" th:href="@{/race/registroV}" type="button">Agregar vivienda</a>
+				<h1>Mis viviendas</h1>
+				<div class="i-dere">
+					<a th:href="@{/vivienda/irRegistrar}" class="btn-unete">Agregar vivienda</a>
+				</div>
 				<br/>
-				<br/><br/>
 					<table id="viviendas">
 						<thead>
 							<tr>
@@ -54,17 +55,26 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="due: ${listaDuenos}">
-								<td th:text="${due.idDueno}"></td>
-								<td th:text="${due.nameOwner}"></td>
-								<td><a th:href="@{/dueno/eliminar?id=}+${due.idDueno}">Eliminar</a></td>
-								<td><a th:href="@{'/dueno/modificar/'}+${due.idDueno}">Modificar</a></td>
+							<tr th:each="due: ${listaViviendas}">
+								<td th:text="${due.NNombreVivienda}"></td>
+								<td th:text="${due.DDireccionVivienda}"></td>
+								<td th:text="${due.NCuartosVivienda}"></td>
+								<td th:text="${due.NBanosVivienda}"></td>
+								<td th:text="${due.NPisosVivienda}"></td>
+								<td th:text="${due.NPersonasVivienda}"></td>
+								<td><a th:href="@{/vivienda/eliminar?id=}+${due.idVivienda}">Eliminar</a></td>
+								<td><a th:href="@{'/vivienda/modificar/'}+${due.idVivienda}">Modificar</a></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div class="i-dere">
-					<h1>Bienvenido, "insertar nombre"</h1>
+					<h1>Bienvenido</h1>
+					<br/>
+					<br/>
+					<h2 th:if="${mensaje != null}" th:text="${mensaje}"></h2>
+					<br/>
+					<br/>
 				</div>
 
 			</div>
