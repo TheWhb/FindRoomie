@@ -31,7 +31,7 @@
 	<main>
 	<div class="c-main-registro">
 		<div class="registro1R">
-			<form class="registroRR" th:action="@{/roomie/registrar}" method="post" th:object="${roomie}">
+			<form class="registroRR"  th:action="@{/roomie/registrar}" method="post" th:object="${roomie}">
 				<div>
 					<h2>Registro</h2>
 					<label id="l-RE-NombresCompletos" for="names">Nombres Completos</label><br/>
@@ -110,10 +110,11 @@
 					  }
 					}
 					</script>
-					<br/>
+										<br/>
 					<br/>
 					<label id="l-RE-username" for="username">Presentación</label><br/>
 					<textarea rows="5" cols="80" id="i-RE-username" th:field="*{PresentacionRoomie}" maxlength="200"></textarea>
+
 					<br/>
 					<br/>
 					<button type="submit" id="btn-RE-registroR">Regístrate</button>
@@ -132,5 +133,7 @@
 	
 	</div>
 	</main>
+	<div th:replace="fragments/footer :: footer"></div>
+
 </body>
 </html>
