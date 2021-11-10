@@ -26,9 +26,7 @@
 				<li><a href="#" class="header-link">Lugares</a></li>
 				<li><a href="#" class="header-link">Contacto</a></li>
 				<li><a href="#" class="header-link">Configuración</a></li>
-				<li><a th:href="@{/SuscripcionXPropietario/}" class="btn-sus1">Premium</a></li>
-				
-				
+				<li><a th:href="@{'/SuscripcionXPropietario/datos/'}+${idPropietario}" class="btn-sus1">Premium</a></li>
 			</ul>
 		</div>
 	</header>
@@ -71,7 +69,7 @@
 				<div class="i-dere">
 					<h1>Bienvenido, propietario</h1>
 					
-					<h2 th:text="${Bienvenida}"></h2>
+					<h2 th:text="${NombreApellido}"></h2>
 					<br/>
 					<br/>
 					<h2 th:if="${mensaje != null}" th:text="${mensaje}"></h2>

@@ -34,16 +34,16 @@
 			<form class="registroRR" th:action="@{/SuscripcionXPropietario/registrar}" method="post" th:object="${suscripcionXPropietario}">
 				<div>
 					<h2>Registro</h2>
-					<label id="l-RE-NombresCompletos" for="names">Propietario</label><br/>
+					<label for="names">Propietario</label>
+					<label th:text="${NAPropietario}"></label>
 					<select id="cbo-RE-genero" th:field="*{propietarioSuscripcionXPropietario.idPropietario}">
-	    					<option th:each="f: ${listaPropietarios}"
-	    							th:value="${f.idPropietario}"	
-	    							th:text="${f.NPropietario}">
+	    					<option th:value="${idPropietario}"
+	    							th:text="${NAPropietario}">
 	    					</option>
     					</select>
 					<br/>
 					<br/>
-					<label id="l-RE-ApellidosCompletos" for="apellidos">Plan</label><br/>
+					<label for="apellidos">Plan</label><br/>
 					<select id="cbo-RE-genero" th:field="*{suscripcionSuscripcionXPropietario.idSuscripcion}">
 	    					<option th:each="s: ${listaSuscripciones}"
 	    							th:value="${s.idSuscripcion}"	
@@ -52,7 +52,7 @@
     				</select>
 					<br/>
 					<br/>
-					<label id="l-RE-ApellidosCompletos" for="apellidos">Renovable</label><br/>
+					<label for="apellidos">Renovable</label><br/>
 					<select id="cbo-RE-genero" th:field="*{RenovableSuscripcionXPropietario}">
 	    					<option th:value="true"> Si </option>
 	    					<option th:value="false"> No </option>

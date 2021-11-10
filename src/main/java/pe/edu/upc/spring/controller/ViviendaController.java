@@ -51,7 +51,8 @@ public class ViviendaController {
 	
 	@RequestMapping("/InicioP")
 	public String irPaginaListadoViviendas(Map<String, Object> model) {
-		model.put("Bienvenida", NombreApellido);
+		model.put("idPropietario", IdPropietario);
+		model.put("NombreApellido", NombreApellido);
 		model.put("listaViviendas", vService.listar());
 		return "inicioP";
 	}
@@ -107,7 +108,8 @@ public class ViviendaController {
 		
 	@RequestMapping("/eliminar")
 	public String eliminar(Map<String, Object> model,  @RequestParam(value="id") Integer id) {
-		model.put("Bienvenida", NombreApellido);
+		model.put("idPropietario", IdPropietario);
+		model.put("NombreApellido", NombreApellido);
 		try {
 			if (id!=null && id>0) {
 				vService.eliminar(id);
@@ -123,6 +125,8 @@ public class ViviendaController {
 		return "inicioP";
 	}
 		
+	
+	
 	@RequestMapping("/listar")
 	public String listar(Map<String, Object> model ) {
 		model.put("listaViviendas", vService.listar());
