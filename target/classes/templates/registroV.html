@@ -35,11 +35,11 @@
 				<div>
 					<h2>Registro de Vivienda</h2>
 					
-					<label for="nombre">Propietario</label>
-    					<select id="cbo-RE-genero" th:field="*{propietarioVivienda.idPropietario}">
-	    					<option th:each="r: ${listaPropietarios}"
-	    							th:value="${r.idPropietario}"	
-	    							th:text="${r.NPropietario}">
+					<label for="nombre">Propietario:</label>
+					<label th:text="${NAPropietario}"></label>
+    					<select id="cbo-RE-genero" th:field="*{propietarioVivienda.idPropietario}" hidden="hidden">
+	    					<option th:value="${idPropietario}"
+	    							th:text="${NAPropietario}">
 	    					</option>
     					</select>
     				<br/>
