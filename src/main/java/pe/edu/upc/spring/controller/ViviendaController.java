@@ -32,23 +32,34 @@ public class ViviendaController {
 	@Autowired
 	private IViviendaService vService;
 	
-	
+	Optional<Propietario> objPropietario;
+	int IdPropietario;
+	String NombreApellido;
 	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
 		return "bienvenido"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
 	}
 	
+	@RequestMapping("/datos/{id}")
+	public String CargarDatos(@PathVariable int id, Map<String, Object> model) {
+		objPropietario = rService.listarId(id);
+		IdPropietario = objPropietario.get().getIdPropietario();
+		NombreApellido = objPropietario.get().getNPropietario() + " " + objPropietario.get().getAPropietario();
+		return "redirect:/vivienda/InicioP";
+	}
+	
 	@RequestMapping("/InicioP")
 	public String irPaginaListadoViviendas(Map<String, Object> model) {
-		model.put("mensajeBien", ", propietario");
+		model.put("Bienvenida", NombreApellido);
 		model.put("listaViviendas", vService.listar());
-		return "inicioP"; // "listViviendas" es una pagina del frontEnd para listar
+		return "inicioP";
 	}
 
 	@RequestMapping("/irRegistrar")
 	public String irPaginaRegistrar(Model model) {
-		model.addAttribute("listaPropietarios", rService.listar());
+		model.addAttribute("idPropietario", IdPropietario);
+		model.addAttribute("NAPropietario", NombreApellido);
 
 		model.addAttribute("vivienda", new Vivienda());
 		model.addAttribute("propietario", new Propietario());
@@ -61,7 +72,8 @@ public class ViviendaController {
 	{
 		if (binRes.hasErrors())
 		{
-			model.addAttribute("listaPropietarios", rService.listar());
+			model.addAttribute("idPropietario", IdPropietario);
+			model.addAttribute("NAPropietario", NombreApellido);
 			return "registroV";
 		}
 		else {
@@ -85,7 +97,8 @@ public class ViviendaController {
 			return "redirect:/vivienda/InicioP";
 		}
 		else {
-			model.addAttribute("listaPropietarios", rService.listar());
+			model.addAttribute("idPropietario", IdPropietario);
+			model.addAttribute("NAPropietario", NombreApellido);
 			if(objVivienda.isPresent())
 				objVivienda.ifPresent(o->model.addAttribute("vivienda", o));
 			return "registroV";
@@ -94,6 +107,7 @@ public class ViviendaController {
 		
 	@RequestMapping("/eliminar")
 	public String eliminar(Map<String, Object> model,  @RequestParam(value="id") Integer id) {
+		model.put("Bienvenida", NombreApellido);
 		try {
 			if (id!=null && id>0) {
 				vService.eliminar(id);
