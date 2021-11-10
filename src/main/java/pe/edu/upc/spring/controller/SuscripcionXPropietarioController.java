@@ -23,7 +23,7 @@ import pe.edu.upc.spring.service.ISuscripcionService;
 import pe.edu.upc.spring.service.IPropietarioService;
 
 @Controller
-@RequestMapping("/SuscripcionXPropietario/")
+@RequestMapping("/SuscripcionXPropietario")
 public class SuscripcionXPropietarioController {
 	@Autowired
 	private ISuscripcionXPropietarioService srService;
@@ -34,15 +34,15 @@ public class SuscripcionXPropietarioController {
 	@Autowired
 	private IPropietarioService rService;
 	
-	@RequestMapping("/bienvenido")
+	@RequestMapping("/suscripcion")
 	public String irPaginaBienvenida() {
-		return "bienvenido"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
+		return "noSusP"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
 	}
 	
 	@RequestMapping("/")
 	public String irPaginaListadoPublicacionPropietarios(Map<String, Object> model) {
 		model.put("listaSuscripcionXRoomies", srService.listar());
-		return "listPlanSuscripcionRoomies"; // "listPropietarios" es una pagina del frontEnd para listar
+		return "pSuscripcionP"; // "listPropietarios" es una pagina del frontEnd para listar
 	}
 
 	@RequestMapping("/irRegistrar")
@@ -53,7 +53,7 @@ public class SuscripcionXPropietarioController {
 		model.addAttribute("suscripcionXPropietario", new SuscripcionXPropietario());
 		model.addAttribute("suscripcion", new Suscripcion());
 		model.addAttribute("propietario", new Propietario());
-		return "planSuscripcionPropietario"; // "propietario" es una pagina del frontEnd para insertar y/o modificar
+		return "registrarSuscripcionP"; // "propietario" es una pagina del frontEnd para insertar y/o modificar
 	}
 	
 	@RequestMapping("/registrar")
