@@ -1,5 +1,6 @@
 package pe.edu.upc.spring.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sun.el.parser.ParseException;
 
+import pe.edu.upc.spring.model.Propietario;
 import pe.edu.upc.spring.model.Roomie;
 import pe.edu.upc.spring.model.Vivienda;
 import pe.edu.upc.spring.service.IRoomieService;
@@ -34,6 +36,8 @@ public class RoomieController {
 	String NombreApellido;
 	Vivienda ViviendaAlquilada;
 	
+	private Roomie sesionRoomie;
+	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
 		return "bienvenido"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
@@ -46,8 +50,8 @@ public class RoomieController {
 	}
 
 	@RequestMapping("/irLogin")
-	public String irPaginaLogin() {
-		
+	public String irPaginaLogin(Model model) {
+		model.addAttribute("roomie", new Roomie());
 		return "loginR";
 	}
 	
@@ -162,6 +166,23 @@ public class RoomieController {
 	public String listar(Map<String, Object> model ) {
 		model.put("listaRoomies", rService.listar());
 		return "listRoomies";
+	}
+	
+	@RequestMapping("/validarUsuario")
+	public String ingresarCuenta(@ModelAttribute("roomie") Roomie objRoomie, BindingResult binRes) throws ParseException {
+		List<Roomie> listaRoomies;
+		objRoomie.setEmailRoomie(objRoomie.getEmailRoomie());
+		objRoomie.setContraseñaRoomie(objRoomie.getContraseñaRoomie());
+		listaRoomies = rService.findByEmailAndPassword(objRoomie.getEmailRoomie(), objRoomie.getContraseñaRoomie());
+
+	
+		if (!listaRoomies.isEmpty()) {
+			objRoomie = listaRoomies.get(0);
+			sesionRoomie = objRoomie;
+			return "redirect:/roomie/datos/" + objRoomie.getIdRoomie();
+		}
+		else 
+			return "loginR";
 	}
 	
 }
