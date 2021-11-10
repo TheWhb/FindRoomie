@@ -34,26 +34,34 @@ public class SuscripcionXPropietarioController {
 	@Autowired
 	private IPropietarioService rService;
 	
-	@RequestMapping("/suscripcion")
-	public String irPaginaBienvenida() {
-		return "noSusP"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
+	Optional<Propietario> objPropietario;
+	int IdPropietario;
+	String NombreApellido;
+	
+	@RequestMapping("/datos/{id}")
+	public String CargarDatos(@PathVariable int id, Map<String, Object> model) {
+		objPropietario = rService.listarId(id);
+		IdPropietario = objPropietario.get().getIdPropietario();
+		NombreApellido = objPropietario.get().getNPropietario() + " " + objPropietario.get().getAPropietario();
+		return "redirect:/SuscripcionXPropietario/";
 	}
 	
 	@RequestMapping("/")
 	public String irPaginaListadoPublicacionPropietarios(Map<String, Object> model) {
-		model.put("listaSuscripcionXRoomies", srService.listar());
-		return "pSuscripcionP"; // "listPropietarios" es una pagina del frontEnd para listar
+		
+		return "pSuscripcionP";
 	}
 
 	@RequestMapping("/irRegistrar")
 	public String irPaginaRegistrar(Model model) {
+		model.addAttribute("idPropietario", IdPropietario);
+		model.addAttribute("NAPropietario", NombreApellido);
 		model.addAttribute("listaSuscripciones", sService.listar());
-		model.addAttribute("listaPropietarios", rService.listar());
 		
 		model.addAttribute("suscripcionXPropietario", new SuscripcionXPropietario());
 		model.addAttribute("suscripcion", new Suscripcion());
 		model.addAttribute("propietario", new Propietario());
-		return "registrarSuscripcionP"; // "propietario" es una pagina del frontEnd para insertar y/o modificar
+		return "registrarSuscripcionP";
 	}
 	
 	@RequestMapping("/registrar")

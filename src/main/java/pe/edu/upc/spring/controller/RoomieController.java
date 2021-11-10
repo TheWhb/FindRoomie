@@ -17,7 +17,6 @@ import com.sun.el.parser.ParseException;
 
 import pe.edu.upc.spring.model.Roomie;
 import pe.edu.upc.spring.model.Vivienda;
-
 import pe.edu.upc.spring.service.IRoomieService;
 import pe.edu.upc.spring.service.IViviendaService;
 
@@ -29,6 +28,11 @@ public class RoomieController {
 	
 	@Autowired
 	private IViviendaService vService;
+	
+	Optional<Roomie> objRoomie;
+	int IdRoomie;
+	String NombreApellido;
+	Vivienda ViviendaAlquilada;
 	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
@@ -47,9 +51,21 @@ public class RoomieController {
 		return "loginR";
 	}
 	
-	@RequestMapping("/irInicio")
-	public String irPaginaInicio() {
-		
+	@RequestMapping("/datos/{id}")
+	public String CargarDatos(@PathVariable int id, Map<String, Object> model) {
+		objRoomie = rService.listarId(id);
+		IdRoomie = objRoomie.get().getIdRoomie();
+		NombreApellido = objRoomie.get().getNRoomie() + " " + objRoomie.get().getARoomie();
+		ViviendaAlquilada = objRoomie.get().getViviendaRoomie();
+		return "redirect:/roomie/InicioR";
+	}
+	
+	@RequestMapping("/InicioR")
+	public String irPaginaListadoViviendas(Map<String, Object> model) {
+		model.put("idRoomie", IdRoomie);
+		model.put("NombreApellido", NombreApellido);
+		model.put("ViviendaAlquilada", ViviendaAlquilada);
+		model.put("listaViviendas", vService.listar());
 		return "inicioR";
 	}
 	
@@ -68,8 +84,8 @@ public class RoomieController {
 		else {
 			objRoomie.setViviendaRoomie(null);
 			boolean flag = rService.grabar(objRoomie);
-			if (flag)
-				return "redirect:/roomie/irInicio";
+			if (flag) 
+				return "redirect:/roomie/datos/" + objRoomie.getIdRoomie();
 			else {
 				model.addAttribute("mensaje", "No se pudo acceder");
 				return "redirect:/roomie/irRegistrar";
@@ -90,6 +106,40 @@ public class RoomieController {
 			model.addAttribute("roomie", objRoomie);
 			return "roomie";
 		}
+	}
+	
+	@RequestMapping("/alquilar")
+	public String alquilar(Map<String, Object> model,  @RequestParam(value="id") Integer id) 
+		throws ParseException
+	{
+		Optional<Roomie> roomie = rService.listarId(IdRoomie);
+		try {
+			if (roomie.get() != null || (id !=null && id>0)) {
+				Vivienda vivienda = vService.buscarId(id).get();
+				roomie.get().setViviendaRoomie(vivienda);
+				boolean flag = rService.grabar(roomie.get());
+				if (flag) {
+					ViviendaAlquilada = vivienda;
+					model.put("mensaje", "¡Alquilado!");
+					model.put("listaViviendas", vService.listar());
+				}
+				else {
+					model.put("mensaje", "No se pudo alquilar");
+				}
+			}
+			else {
+				model.put("mensaje", "No se pudo alquilar");
+			}
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+			model.put("mensaje", "No se pudo alquilar");
+			model.put("listaViviendas", vService.listar());
+		}
+		model.put("idRoomie", IdRoomie);
+		model.put("NombreApellido", NombreApellido);
+		model.put("ViviendaAlquilada", ViviendaAlquilada);
+		return "inicioR";
 	}
 		
 	@RequestMapping("/eliminar")

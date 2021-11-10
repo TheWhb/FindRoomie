@@ -69,11 +69,11 @@ public class SuscripcionXPropietario implements Serializable {
 		this.suscripcionSuscripcionXPropietario = suscripcionSuscripcionXPropietario;
 	}
 
-	public Propietario getRoomieSuscripcionXPropietario() {
+	public Propietario getPropietarioSuscripcionXPropietario() {
 		return propietarioSuscripcionXPropietario;
 	}
 
-	public void setRoomieSuscripcionXPropietario(Propietario propietarioSuscripcionXPropietario) {
+	public void setPropietarioSuscripcionXPropietario(Propietario propietarioSuscripcionXPropietario) {
 		this.propietarioSuscripcionXPropietario = propietarioSuscripcionXPropietario;
 	}
 

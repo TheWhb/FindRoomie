@@ -27,8 +27,6 @@
 				<li><a href="#" class="header-link">Contacto</a></li>
 				<li><a href="#" class="header-link">Configuración</a></li>
 				<li><a href="#" class="btn-sus1">Premium</a></li>
-				
-				
 			</ul>
 		</div>
 	</header>
@@ -36,7 +34,7 @@
 	<div class="c-main-r">
 		<div class="c-inicio-r">
 				<div class="i-izq">
-				<h1>Viviendas</h1>
+				<h1>Las Viviendas</h1>
 				
 					<table id="viviendas">
 						<thead>
@@ -47,21 +45,57 @@
 								<th>NBAÑOS</th>
 								<th>NPISOS</th>
 								<th>NPERSONAS</th>
-								<th>OPERACION</th>
+								<th th:if="${ViviendaAlquilada == null}">OPERACION</th>
 
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="due: ${listaDuenos}">
-								<td th:text="${due.idDueno}"></td>
-								<td th:text="${due.nameOwner}"></td>
-								<td><a th:href="@{/dueno/eliminar?id=}+${due.idDueno}">Alquilar</a></td>
+							<tr th:each="due: ${listaViviendas}">
+								<td th:text="${due.NNombreVivienda}"></td>
+								<td th:text="${due.DDireccionVivienda}"></td>
+								<td th:text="${due.NCuartosVivienda}"></td>
+								<td th:text="${due.NBanosVivienda}"></td>
+								<td th:text="${due.NPisosVivienda}"></td>
+								<td th:text="${due.NPersonasVivienda}"></td>
+								<td th:if="${ViviendaAlquilada == null}"><a th:href="@{/roomie/alquilar?id=}+${due.idVivienda}">Alquilar</a></td>
+								
 							</tr>
 						</tbody>
 					</table>
 				</div>
 				<div class="i-dere">
-					<h1>Bienvenido, "insertar nombre"</h1>
+					<h1>Bienvenido, roomie</h1>
+					
+					<h2 th:text="${NombreApellido}"></h2>
+					<br/>
+					<br/>
+					<h2 th:if="${mensaje != null}" th:text="${mensaje}"></h2>
+					<table id="viviendas" th:if="${ViviendaAlquilada != null}" th:object="${ViviendaAlquilada}">
+						<thead>
+							<tr>
+								<th>DESCRIPCION</th>
+								<th>DIRECCION</th>
+								<th>NCUARTOS</th>
+								<th>NBAÑOS</th>
+								<th>NPISOS</th>
+								<th>NPERSONAS</th>
+								<th>OPERACION</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="due: ${listaViviendas}">
+								<td th:text="${due.NNombreVivienda}"></td>
+								<td th:text="${due.DDireccionVivienda}"></td>
+								<td th:text="${due.NCuartosVivienda}"></td>
+								<td th:text="${due.NBanosVivienda}"></td>
+								<td th:text="${due.NPisosVivienda}"></td>
+								<td th:text="${due.NPersonasVivienda}"></td>
+								<td><a href="">Cancelar</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<br/>
+					<br/>
 				</div>
 
 			</div>

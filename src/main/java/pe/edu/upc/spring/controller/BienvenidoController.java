@@ -1,4 +1,4 @@
-package pe.edu.upc.spring.model;
+package pe.edu.upc.spring.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
