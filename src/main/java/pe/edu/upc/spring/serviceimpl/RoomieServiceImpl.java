@@ -45,5 +45,10 @@ public class RoomieServiceImpl implements IRoomieService {
 		return dRoomie.findAll();
 	}
 
+	@Override
+	public List<Roomie> findByEmailAndPassword(String EmailRoomie, String ContraseñaRoomie) {
+		return dRoomie.findByEmailAndPassword(EmailRoomie, ContraseñaRoomie);
+	}
+
 
 }
