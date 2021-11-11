@@ -96,19 +96,17 @@ public class SuscripcionXPropietarioController {
 	}
 		
 	@RequestMapping("/eliminar")
-	public String eliminar(Map<String, Object> model,  @RequestParam(value="id") Integer id) {
+	public String eliminar(Map<String, Object> model,  @RequestParam(value="id") Integer id, @RequestParam(value="Pro") Integer Pro) {
 		try {
 			if (id!=null && id>0) {
 				srService.eliminar(id);
-				model.put("listaSuscripcionXPropietarios", srService.listar());
 			}
 		}
 		catch(Exception ex) {
 			System.out.println(ex.getMessage());
 			model.put("mensaje", "Ocurrio un error");
-			model.put("listaSuscripcionXPropietarios", srService.listar());
 		}
-		return "listPlanSuscripcionRoomies";
+		return "redirect:/vivienda/datos/" + Pro;
 	}
 		
 	@RequestMapping("/listar")

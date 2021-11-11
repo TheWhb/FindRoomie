@@ -41,6 +41,7 @@ public class ViviendaController {
 	String Correo;
 	String Presentacion;
 	Boolean Premiun;
+	int IdSuscripcion;
 	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
@@ -58,6 +59,7 @@ public class ViviendaController {
 		for (SuscripcionXPropietario SXP : lista) {
 			if (SXP.getPropietarioSuscripcionXPropietario().getIdPropietario() == id) {
 				Premiun = true;
+				IdSuscripcion = SXP.getIdSuscripcionXRoomie();
 				return "redirect:/vivienda/InicioP";
 			}
 		}
@@ -76,6 +78,7 @@ public class ViviendaController {
 			model.put("mensajePremiun", "Tiene Premiun");
 		else
 			model.put("mensajePremiun", "No tiene Premiun");
+		model.put("idSuscripcion", IdSuscripcion);
 		model.put("listaViviendas", vService.listar());
 		return "inicioP";
 	}
@@ -152,6 +155,7 @@ public class ViviendaController {
 			model.put("mensajePremiun", "Tiene Premiun");
 		else
 			model.put("mensajePremiun", "No tiene Premiun");
+		model.put("idSuscripcion", IdSuscripcion);
 		return "inicioP";
 	}
 		
