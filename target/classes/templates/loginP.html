@@ -48,16 +48,12 @@
 						<br/>
 						<br/>
 						<label id="passwL" for="passwordR">Contraseña:</label><br/>
-						<input type="password" id="contrasenia"></input>
+						<input type="password" id="contrasenia"  th:field="*{ContraseñaPropietario}"></input>
 						<br/>
 						<br/>
 						<button type="submit" id="btnEntrar">Únete</button>
 					</form>
-
-
-
-
-
+					<h3 th:if="${mensaje != null}" th:text="${mensaje}"></h3>
 				</div>
 			</div>
 		</div>

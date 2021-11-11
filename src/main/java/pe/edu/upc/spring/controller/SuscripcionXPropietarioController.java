@@ -69,14 +69,14 @@ public class SuscripcionXPropietarioController {
 		throws ParseException
 	{
 		if (binRes.hasErrors())
-			return "planSuscripcionPropietario";
+			return "registrarSuscripcionP";
 		else {
 			boolean flag = srService.grabar(objSuscripcionXPropietario);
 			if (flag)
-				return "redirect:/planSuscripcionPropietario/listar";
+				return "redirect:/vivienda/datos/" + objSuscripcionXPropietario.getPropietarioSuscripcionXPropietario().getIdPropietario();
 			else {
-				model.addAttribute("mensaje", "No se pudo acceder");
-				return "redirect:/planSuscripcionPropietario/irRegistrar";
+				model.addAttribute("mensaje", "No se pudo comprar");
+				return "redirect:/SuscripcionXPropietario/irRegistrar";
 			}
 		}
 	}

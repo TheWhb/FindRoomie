@@ -1,5 +1,6 @@
 package pe.edu.upc.spring.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -121,7 +122,6 @@ public class RoomieController {
 				if (flag) {
 					ViviendaAlquilada = vivienda;
 					model.put("mensaje", "¡Alquilado!");
-					model.put("listaViviendas", vService.listar());
 				}
 				else {
 					model.put("mensaje", "No se pudo alquilar");
@@ -164,4 +164,20 @@ public class RoomieController {
 		return "listRoomies";
 	}
 	
+	@RequestMapping("/validarUsuario")
+	public String ingresarCuenta(@ModelAttribute("roomie") Roomie objRoomie, BindingResult binRes, Model model) throws ParseException {
+		List<Roomie> listaRoomies;
+		objRoomie.setEmailRoomie(objRoomie.getEmailRoomie());
+		objRoomie.setContraseñaRoomie(objRoomie.getContraseñaRoomie());
+		listaRoomies = rService.findByEmailAndPassword(objRoomie.getEmailRoomie(), objRoomie.getContraseñaRoomie());
+	
+		if (!listaRoomies.isEmpty()) {
+			objRoomie = listaRoomies.get(0);
+			return "redirect:/roomie/datos/" + objRoomie.getIdRoomie();
+		}
+		else {
+			model.addAttribute("mensaje", "Datos incorrectos");
+			return "loginR";
+		}
+	}
 }

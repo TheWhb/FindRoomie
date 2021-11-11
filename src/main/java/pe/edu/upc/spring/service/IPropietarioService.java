@@ -10,4 +10,5 @@ public interface IPropietarioService {
 	public void eliminar(int idPropietario);
 	public Optional<Propietario> listarId(int idPropietario);
 	public List<Propietario> listar();
+	public List<Propietario> findByEmailAndPassword(String EmailPropietario, String ContraseñaPropietario);
 }

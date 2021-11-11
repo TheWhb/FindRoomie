@@ -26,19 +26,23 @@
 				<li><a href="#" class="header-link">Lugares</a></li>
 				<li><a href="#" class="header-link">Contacto</a></li>
 				<li><a href="#" class="header-link">Configuración</a></li>
-				<li><a th:href="@{'/SuscripcionXPropietario/datos/'}+${idPropietario}" class="btn-sus1">Premium</a></li>
+				<li><a
+					th:href="@{'/SuscripcionXPropietario/datos/'}+${idPropietario}"
+					class="btn-sus1">Premium</a></li>
 			</ul>
 		</div>
 	</header>
 	<main>
-	<div class="c-main-p">
-		<div class="c-inicio-p">
+		<div class="c-main-p">
+			<div class="c-inicio-p">
 				<div class="i-izq">
-				<h1>Mis viviendas</h1>
-				<div class="i-dere">
-					<a th:href="@{/vivienda/irRegistrar}" class="btn-unete">Agregar vivienda</a>
-				</div>
-				<br/>
+					<h1>Bienvenido, propietario</h1>
+					<h1>Mis viviendas</h1>
+					<div class="i-dere">
+						<a th:href="@{/vivienda/irRegistrar}" class="btn-unete">Agregar
+							vivienda</a>
+					</div>
+					<br />
 					<table id="viviendas">
 						<thead>
 							<tr>
@@ -60,34 +64,44 @@
 								<td th:text="${due.NBanosVivienda}"></td>
 								<td th:text="${due.NPisosVivienda}"></td>
 								<td th:text="${due.NPersonasVivienda}"></td>
-								<td><a th:href="@{/vivienda/eliminar?id=}+${due.idVivienda}">Eliminar</a></td>
-								<td><a th:href="@{'/vivienda/modificar/'}+${due.idVivienda}">Modificar</a></td>
+								<td><a
+									th:href="@{/vivienda/eliminar?id=}+${due.idVivienda}">Eliminar</a></td>
+								<td><a
+									th:href="@{'/vivienda/modificar/'}+${due.idVivienda}">Modificar</a></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="i-dere">
-					<h1>Bienvenido, propietario</h1>
-					
-					<h2 th:text="${NombreApellido}"></h2>
-					<br/>
-					<br/>
-					<h2 th:if="${mensaje != null}" th:text="${mensaje}"></h2>
-					<br/>
-					<br/>
+				<div class="card">
+					<div class="card-image">
+						<img
+							src="https://512pixels.net/downloads/macos-wallpapers/10-0_10.1.png"
+							alt="bg" />
+					</div>
+					<div class="profile-image">
+						<img
+							src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=687&q=80"
+							alt="pfp" />
+					</div>
+					<div class="card-content">
+						<h3 th:text="${NombreApellido}"></h3>
+						<h4 th:text="${Correo}"></h4>
+						<p th:text="${Presentacion}"></p>
+						<p th:text="${Premiun}"></p>
+						<h2 th:if="${mensaje != null}" th:text="${mensaje}"></h2>
+					</div>
 				</div>
-
 			</div>
-		<div class="circle1"></div>
-		<div class="circle2"></div>
-		
-		
-	
-	</div>
+			<div class="circle1"></div>
+			<div class="circle2"></div>
+
+
+
+		</div>
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
-	
-	
-	
+
+
+
 </body>
 </html>

@@ -1,5 +1,6 @@
 package pe.edu.upc.spring.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -101,6 +102,23 @@ public class PropietarioController {
 	public String listar(Map<String, Object> model ) {
 		model.put("listaPropietarios", rService.listar());
 		return "listPropietarios";
+	}
+	
+	@RequestMapping("/validarUsuario")
+	public String ingresarCuenta(@ModelAttribute("propietario") Propietario objPropietario, BindingResult binRes, Model model) throws ParseException {
+		List<Propietario> listaPropietarios;
+		objPropietario.setEmailPropietario(objPropietario.getEmailPropietario());
+		objPropietario.setContraseñaPropietario(objPropietario.getContraseñaPropietario());
+		listaPropietarios = rService.findByEmailAndPassword(objPropietario.getEmailPropietario(), objPropietario.getContraseñaPropietario());
+		
+		if (!listaPropietarios.isEmpty()) {
+			objPropietario = listaPropietarios.get(0);
+			return "redirect:/vivienda/datos/" + objPropietario.getIdPropietario();
+		}
+		else {
+			model.addAttribute("mensaje", "Datos incorrectos");
+			return "loginP";
+		}
 	}
 	
 }
