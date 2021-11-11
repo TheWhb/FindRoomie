@@ -42,10 +42,11 @@ public class RoomieController {
 	String Presentacion;
 	Boolean Premiun;
 	Vivienda ViviendaAlquilada;
+	int IdSuscripcion;
 	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
-		return "bienvenido"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
+		return "bienvenido";
 	}
 	
 	@RequestMapping("/")
@@ -72,6 +73,7 @@ public class RoomieController {
 		for (SuscripcionXRoomie SXR : lista) {
 			if (SXR.getRoomieSuscripcionXRoomie().getIdRoomie() == id) {
 				Premiun = true;
+				IdSuscripcion = SXR.getIdSuscripcionXRoomie();
 				return "redirect:/roomie/InicioR";
 			}
 		}
@@ -90,6 +92,7 @@ public class RoomieController {
 			model.put("mensajePremiun", "Tiene Premiun");
 		else
 			model.put("mensajePremiun", "No tiene Premiun");
+		model.put("idSuscripcion", IdSuscripcion);
 		model.put("ViviendaAlquilada", ViviendaAlquilada);
 		model.put("listaViviendas", vService.listar());
 		return "inicioR";
@@ -173,6 +176,7 @@ public class RoomieController {
 			model.put("mensajePremiun", "Tiene Premiun");
 		else
 			model.put("mensajePremiun", "No tiene Premiun");
+		model.put("idSuscripcion", IdSuscripcion);
 		model.put("ViviendaAlquilada", ViviendaAlquilada);
 		return "inicioR";
 	}
@@ -212,6 +216,7 @@ public class RoomieController {
 			model.put("mensajePremiun", "Tiene Premiun");
 		else
 			model.put("mensajePremiun", "No tiene Premiun");
+		model.put("idSuscripcion", IdSuscripcion);
 		model.put("listaViviendas", vService.listar());
 		return "inicioR";
 	}

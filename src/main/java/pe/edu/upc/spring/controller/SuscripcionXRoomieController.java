@@ -96,19 +96,17 @@ public class SuscripcionXRoomieController {
 	}
 		
 	@RequestMapping("/eliminar")
-	public String eliminar(Map<String, Object> model,  @RequestParam(value="id") Integer id) {
+	public String eliminar(Map<String, Object> model, @RequestParam(value="id") Integer id, @RequestParam(value="Roo") Integer Roo) {
 		try {
 			if (id!=null && id>0) {
 				srService.eliminar(id);
-				model.put("listaSuscripcionXRoomies", srService.listar());
 			}
 		}
 		catch(Exception ex) {
 			System.out.println(ex.getMessage());
 			model.put("mensaje", "Ocurrio un error");
-			model.put("listaSuscripcionXRoomies", srService.listar());
 		}
-		return "listPlanSuscripcionRoomies";
+		return "redirect:/roomie/datos/" + Roo;
 	}
 		
 	@RequestMapping("/listar")
