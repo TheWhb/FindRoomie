@@ -112,7 +112,19 @@ header {
 }
 .btn-sus1:hover{
 		box-shadow: 0px 3px 17px #F28D1978;
-	
+}
+
+.btn-sus2 {
+	font-weight: 700;
+	font-size: 16px;
+	padding: 10px 25px 10px 25px;
+	border-radius: 20px;
+	background: #904E4E;
+	color: white;
+	text-decoration: none;
+}
+.btn-sus2:hover{
+		box-shadow: 0px 3px 17px #6B1D1D;
 }
 
 .c-sus {

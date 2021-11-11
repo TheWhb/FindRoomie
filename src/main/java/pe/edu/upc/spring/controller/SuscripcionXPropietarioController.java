@@ -87,11 +87,11 @@ public class SuscripcionXPropietarioController {
 		Optional<SuscripcionXPropietario> objSuscripcionXPropietario = srService.listarId(id);
 		if (objSuscripcionXPropietario == null) {
 			objRedir.addFlashAttribute("mensaje", "No se pudo acceder");
-			return "redirect:/planSuscripcionPropietario/listar";
+			return "redirect:/vivienda/inicioP";
 		}
 		else {
 			model.addAttribute("suscripcionXPropietario", objSuscripcionXPropietario);
-			return "planSuscripcionPropietario";
+			return "noSusP";
 		}
 	}
 		
