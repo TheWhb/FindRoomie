@@ -16,10 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sun.el.parser.ParseException;
 
-import pe.edu.upc.spring.model.Propietario;
 import pe.edu.upc.spring.model.Roomie;
+import pe.edu.upc.spring.model.SuscripcionXRoomie;
 import pe.edu.upc.spring.model.Vivienda;
 import pe.edu.upc.spring.service.IRoomieService;
+import pe.edu.upc.spring.service.ISuscripcionXRoomieService;
 import pe.edu.upc.spring.service.IViviendaService;
 
 @Controller
@@ -31,12 +32,16 @@ public class RoomieController {
 	@Autowired
 	private IViviendaService vService;
 	
+	@Autowired
+	private ISuscripcionXRoomieService srService;
+	
 	Optional<Roomie> objRoomie;
 	int IdRoomie;
 	String NombreApellido;
+	String Correo;
+	String Presentacion;
+	Boolean Premiun;
 	Vivienda ViviendaAlquilada;
-	
-	private Roomie sesionRoomie;
 	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
@@ -61,6 +66,16 @@ public class RoomieController {
 		IdRoomie = objRoomie.get().getIdRoomie();
 		NombreApellido = objRoomie.get().getNRoomie() + " " + objRoomie.get().getARoomie();
 		ViviendaAlquilada = objRoomie.get().getViviendaRoomie();
+		Correo = objRoomie.get().getEmailRoomie();
+		Presentacion = "DNI: " + objRoomie.get().getDNIRoomie() + " Celular: " + objRoomie.get().getNroCelularRoomie();
+		List<SuscripcionXRoomie> lista = srService.listar();
+		for (SuscripcionXRoomie SXR : lista) {
+			if (SXR.getRoomieSuscripcionXRoomie().getIdRoomie() == id) {
+				Premiun = true;
+				return "redirect:/roomie/InicioR";
+			}
+		}
+		Premiun = false;
 		return "redirect:/roomie/InicioR";
 	}
 	
@@ -68,6 +83,13 @@ public class RoomieController {
 	public String irPaginaListadoViviendas(Map<String, Object> model) {
 		model.put("idRoomie", IdRoomie);
 		model.put("NombreApellido", NombreApellido);
+		model.put("Correo", Correo);
+		model.put("Presentacion", Presentacion);
+		model.put("Premiun", Premiun);
+		if	(Premiun)
+			model.put("mensajePremiun", "Tiene Premiun");
+		else
+			model.put("mensajePremiun", "No tiene Premiun");
 		model.put("ViviendaAlquilada", ViviendaAlquilada);
 		model.put("listaViviendas", vService.listar());
 		return "inicioR";
@@ -86,7 +108,7 @@ public class RoomieController {
 		if (binRes.hasErrors())
 			return "registroR";
 		else {
-			objRoomie.setViviendaRoomie(null);
+			objRoomie.setViviendaRoomie(ViviendaAlquilada);
 			boolean flag = rService.grabar(objRoomie);
 			if (flag) 
 				return "redirect:/roomie/datos/" + objRoomie.getIdRoomie();
@@ -108,7 +130,7 @@ public class RoomieController {
 		}
 		else {
 			model.addAttribute("idRoomie", IdRoomie);
-			model.addAttribute("NARoomie", NombreApellido);
+			model.addAttribute("NombreApellido", NombreApellido);
 			if(objRoomie.isPresent())
 				objRoomie.ifPresent(o->model.addAttribute("roomie", o));
 			return "registroR";
@@ -144,7 +166,53 @@ public class RoomieController {
 		}
 		model.put("idRoomie", IdRoomie);
 		model.put("NombreApellido", NombreApellido);
+		model.put("Correo", Correo);
+		model.put("Presentacion", Presentacion);
+		model.put("Premiun", Premiun);
+		if	(Premiun)
+			model.put("mensajePremiun", "Tiene Premiun");
+		else
+			model.put("mensajePremiun", "No tiene Premiun");
 		model.put("ViviendaAlquilada", ViviendaAlquilada);
+		return "inicioR";
+	}
+	
+	@RequestMapping("/cancelar")
+	public String cancelar(Map<String, Object> model,  @RequestParam(value="id") Integer id) 
+		throws ParseException
+	{
+		Optional<Roomie> roomie = rService.listarId(IdRoomie);
+		try {
+			if (roomie.get() != null || (id !=null && id>0)) {
+				roomie.get().setViviendaRoomie(null);
+				boolean flag = rService.grabar(roomie.get());
+				if (flag) {
+					ViviendaAlquilada = null;
+					model.put("mensaje", "¡Cancelado!");
+				}
+				else {
+					model.put("mensaje", "No se pudo cancelar");
+				}
+			}
+			else {
+				model.put("mensaje", "No se pudo cancelar");
+			}
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+			model.put("mensaje", "No se pudo cancelar");
+			model.put("ViviendaAlquilada", ViviendaAlquilada);
+		}
+		model.put("idRoomie", IdRoomie);
+		model.put("NombreApellido", NombreApellido);
+		model.put("Correo", Correo);
+		model.put("Presentacion", Presentacion);
+		model.put("Premiun", Premiun);
+		if	(Premiun)
+			model.put("mensajePremiun", "Tiene Premiun");
+		else
+			model.put("mensajePremiun", "No tiene Premiun");
+		model.put("listaViviendas", vService.listar());
 		return "inicioR";
 	}
 		
