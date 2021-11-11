@@ -48,7 +48,6 @@ public class SuscripcionXPropietarioController {
 	
 	@RequestMapping("/")
 	public String irPaginaListadoPublicacionPropietarios(Map<String, Object> model) {
-		
 		return "pSuscripcionP";
 	}
 

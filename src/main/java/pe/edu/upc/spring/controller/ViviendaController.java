@@ -54,6 +54,14 @@ public class ViviendaController {
 		NombreApellido = objPropietario.get().getNPropietario() + " " + objPropietario.get().getAPropietario();
 		Correo = objPropietario.get().getEmailPropietario();
 		Presentacion = "DNI: " + objPropietario.get().getDNIPropietario() + " Celular: " + objPropietario.get().getNroCelularPropietario();
+		List<SuscripcionXPropietario> lista = srService.listar();
+		for (SuscripcionXPropietario SXP : lista) {
+			if (SXP.getPropietarioSuscripcionXPropietario().getIdPropietario() == id) {
+				Premiun = true;
+				return "redirect:/vivienda/InicioP";
+			}
+		}
+		Premiun = false;
 		return "redirect:/vivienda/InicioP";
 	}
 	
@@ -64,6 +72,10 @@ public class ViviendaController {
 		model.put("Correo", Correo);
 		model.put("Presentacion", Presentacion);
 		model.put("Premiun", Premiun);
+		if	(Premiun)
+			model.put("mensajePremiun", "Tiene Premiun");
+		else
+			model.put("mensajePremiun", "No tiene Premiun");
 		model.put("listaViviendas", vService.listar());
 		return "inicioP";
 	}
@@ -136,6 +148,10 @@ public class ViviendaController {
 		model.put("Correo", Correo);
 		model.put("Presentacion", Presentacion);
 		model.put("Premiun", Premiun);
+		if	(Premiun)
+			model.put("mensajePremiun", "Tiene Premiun");
+		else
+			model.put("mensajePremiun", "No tiene Premiun");
 		return "inicioP";
 	}
 		

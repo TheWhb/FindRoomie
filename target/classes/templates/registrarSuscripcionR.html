@@ -4,7 +4,7 @@
 <head>
 
 <meta charset="UTF-8"></meta>
-<title>Registro de Suscripcion en Propietario</title>
+<title>Registro de Suscripcion en Roomie</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
@@ -31,20 +31,20 @@
 	<main>
 	<div class="c-main-registro">
 		<div class="registro1R">
-			<form class="registroRR" th:action="@{/SuscripcionXPropietario/registrar}" method="post" th:object="${suscripcionXPropietario}">
+			<form class="registroRR" th:action="@{/SuscripcionXRoomie/registrar}" method="post" th:object="${suscripcionXRoomie}">
 				<div>
 					<h2>Registro</h2>
-					<label for="names">Propietario:</label>
-					<label th:text="${NAPropietario}"></label>
-					<select id="cbo-RE-genero" th:field="*{propietarioSuscripcionXPropietario.idPropietario}" hidden="hidden">
-	    					<option th:value="${idPropietario}"
-	    							th:text="${NAPropietario}">
+					<label for="names">Roomie:</label>
+					<label th:text="${NARoomie}"></label>
+					<select id="cbo-RE-genero" th:field="*{roomieSuscripcionXRoomie.idRoomie}" hidden="hidden">
+	    					<option th:value="${idRoomie}"
+	    							th:text="${NARoomie}">
 	    					</option>
     					</select>
 					<br/>
 					<br/>
 					<label for="apellidos">Plan</label><br/>
-					<select id="cbo-RE-genero" th:field="*{suscripcionSuscripcionXPropietario.idSuscripcion}">
+					<select id="cbo-RE-genero" th:field="*{suscripcionSuscripcionXRoomie.idSuscripcion}">
 	    					<option th:each="s: ${listaSuscripciones}"
 	    							th:value="${s.idSuscripcion}"	
 	    							th:text="${s.TipoSuscripcion}">
@@ -53,7 +53,7 @@
 					<br/>
 					<br/>
 					<label for="apellidos">Renovable</label><br/>
-					<select id="cbo-RE-genero" th:field="*{RenovableSuscripcionXPropietario}">
+					<select id="cbo-RE-genero" th:field="*{RenovableSuscripcionXRoomie}">
 	    					<option th:value="true"> Si </option>
 	    					<option th:value="false"> No </option>
     				</select>
