@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import pe.edu.upc.spring.model.Propietario;
 import pe.edu.upc.spring.model.Roomie;
 
 @Repository

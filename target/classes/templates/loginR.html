@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -42,13 +41,13 @@
 							aquí.</a>
 					</p>
 					<br />
-					<form class="loginPP">
+					<form class="loginPP" th:action="@{/roomie/validarUsuario}" method="post" th:object="${roomie}">
 						<label id="mailL" for="emailR">Email:</label><br/>
-						<input type="text" id="correoElectronico"></input>
+						<input type="text" id="correoElectronico" th:field="*{EmailRoomie}"></input>
 						<br/>
 						<br/>
 						<label id="passwL" for="passwordR">Contraseña:</label><br/>
-						<input type="password" id="contrasenia"></input>
+						<input type="password" id="contrasenia" th:field="*{ContraseñaRoomie}"></input>
 						<br/>
 						<br/>
 						<button type="submit" id="btnEntrar">Únete</button>

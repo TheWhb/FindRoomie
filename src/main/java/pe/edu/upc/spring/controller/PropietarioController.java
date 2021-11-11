@@ -25,6 +25,8 @@ public class PropietarioController {
 	@Autowired
 	private IPropietarioService rService;
 	
+	private Propietario sesionPropietario;
+	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
 		return "bienvenido"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
@@ -37,8 +39,8 @@ public class PropietarioController {
 	}
 
 	@RequestMapping("/irLogin")
-	public String irPaginaLogin() {
-		
+	public String irPaginaLogin(Model model) {
+		model.addAttribute("propietario", new Propietario());
 		return "loginP";
 	}
 	
@@ -57,6 +59,7 @@ public class PropietarioController {
 		else {
 			boolean flag = rService.grabar(objPropietario);
 			if (flag) {
+				sesionPropietario = objPropietario;
 				model.addAttribute("mensaje", objPropietario.getNPropietario());
 				return "redirect:/vivienda/datos/" + objPropietario.getIdPropietario();
 			}

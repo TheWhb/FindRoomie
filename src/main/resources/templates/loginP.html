@@ -42,9 +42,9 @@
 							aquí.</a>
 					</p>
 					<br />
-					<form class="loginRR">
+					<form class="loginRR" th:action="@{/propietario/validarUsuario}" method="post" th:object="${propietario}">
 						<label id="mailL" for="emailR">Email:</label><br/>
-						<input type="text" id="correoElectronico"></input>
+						<input type="text" id="correoElectronico" th:field="*{EmailPropietario}"></input>
 						<br/>
 						<br/>
 						<label id="passwL" for="passwordR">Contraseña:</label><br/>

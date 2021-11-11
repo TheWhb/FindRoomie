@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sun.el.parser.ParseException;
 
+import pe.edu.upc.spring.model.Propietario;
 import pe.edu.upc.spring.model.Roomie;
 import pe.edu.upc.spring.model.Vivienda;
 import pe.edu.upc.spring.service.IRoomieService;
@@ -35,6 +36,8 @@ public class RoomieController {
 	String NombreApellido;
 	Vivienda ViviendaAlquilada;
 	
+	private Roomie sesionRoomie;
+	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
 		return "bienvenido"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
@@ -47,8 +50,8 @@ public class RoomieController {
 	}
 
 	@RequestMapping("/irLogin")
-	public String irPaginaLogin() {
-		
+	public String irPaginaLogin(Model model) {
+		model.addAttribute("roomie", new Roomie());
 		return "loginR";
 	}
 	
@@ -170,7 +173,7 @@ public class RoomieController {
 		objRoomie.setEmailRoomie(objRoomie.getEmailRoomie());
 		objRoomie.setContraseñaRoomie(objRoomie.getContraseñaRoomie());
 		listaRoomies = rService.findByEmailAndPassword(objRoomie.getEmailRoomie(), objRoomie.getContraseñaRoomie());
-	
+    
 		if (!listaRoomies.isEmpty()) {
 			objRoomie = listaRoomies.get(0);
 			return "redirect:/roomie/datos/" + objRoomie.getIdRoomie();
