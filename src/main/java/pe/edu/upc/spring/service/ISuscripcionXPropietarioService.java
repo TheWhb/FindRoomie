@@ -10,4 +10,5 @@ public interface ISuscripcionXPropietarioService {
 	public void eliminar(int idSuscripcionXPropietario);
 	public Optional<SuscripcionXPropietario> listarId(int idSuscripcionXPropietario);
 	public List<SuscripcionXPropietario> listar();
+	public List<SuscripcionXPropietario> buscarIdPropietario(int idPropietario);
 }

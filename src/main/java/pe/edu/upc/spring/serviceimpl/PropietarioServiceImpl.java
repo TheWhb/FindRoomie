@@ -47,9 +47,8 @@ public class PropietarioServiceImpl implements IPropietarioService {
 
 	@Override
 	@Transactional(readOnly=true)
-	public List<Propietario> findByEmailAndPassword(String EmailPropietario, String ContraseniaPropietario) {
-		return dPropietario.findByEmailAndPassword(EmailPropietario, ContraseniaPropietario);
+	public List<Propietario> findByEmailAndPassword(String EmailPropietario, String ContraseñaPropietario) {
+		return dPropietario.findByEmailAndPassword(EmailPropietario, ContraseñaPropietario);
 	}
-
 
 }

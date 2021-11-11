@@ -18,10 +18,10 @@ import com.sun.el.parser.ParseException;
 
 import pe.edu.upc.spring.model.Vivienda;
 import pe.edu.upc.spring.model.Propietario;
-
-
+import pe.edu.upc.spring.model.SuscripcionXPropietario;
 import pe.edu.upc.spring.service.IViviendaService;
 import pe.edu.upc.spring.service.IPropietarioService;
+import pe.edu.upc.spring.service.ISuscripcionXPropietarioService;
 
 @Controller
 @RequestMapping("/vivienda")
@@ -32,9 +32,15 @@ public class ViviendaController {
 	@Autowired
 	private IViviendaService vService;
 	
+	@Autowired
+	private ISuscripcionXPropietarioService srService;
+	
 	Optional<Propietario> objPropietario;
 	int IdPropietario;
 	String NombreApellido;
+	String Correo;
+	String Presentacion;
+	Boolean Premiun;
 	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
@@ -46,6 +52,8 @@ public class ViviendaController {
 		objPropietario = rService.listarId(id);
 		IdPropietario = objPropietario.get().getIdPropietario();
 		NombreApellido = objPropietario.get().getNPropietario() + " " + objPropietario.get().getAPropietario();
+		Correo = objPropietario.get().getEmailPropietario();
+		Presentacion = "DNI: " + objPropietario.get().getDNIPropietario() + " Celular: " + objPropietario.get().getNroCelularPropietario();
 		return "redirect:/vivienda/InicioP";
 	}
 	
@@ -53,6 +61,9 @@ public class ViviendaController {
 	public String irPaginaListadoViviendas(Map<String, Object> model) {
 		model.put("idPropietario", IdPropietario);
 		model.put("NombreApellido", NombreApellido);
+		model.put("Correo", Correo);
+		model.put("Presentacion", Presentacion);
+		model.put("Premiun", Premiun);
 		model.put("listaViviendas", vService.listar());
 		return "inicioP";
 	}
@@ -108,8 +119,6 @@ public class ViviendaController {
 		
 	@RequestMapping("/eliminar")
 	public String eliminar(Map<String, Object> model,  @RequestParam(value="id") Integer id) {
-		model.put("idPropietario", IdPropietario);
-		model.put("NombreApellido", NombreApellido);
 		try {
 			if (id!=null && id>0) {
 				vService.eliminar(id);
@@ -122,6 +131,11 @@ public class ViviendaController {
 			model.put("mensaje", "Ocurrio un error");
 			model.put("listaViviendas", vService.listar());
 		}
+		model.put("idPropietario", IdPropietario);
+		model.put("NombreApellido", NombreApellido);
+		model.put("Correo", Correo);
+		model.put("Presentacion", Presentacion);
+		model.put("Premiun", Premiun);
 		return "inicioP";
 	}
 		

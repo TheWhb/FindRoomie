@@ -108,20 +108,20 @@ public class PropietarioController {
 	}
 	
 	@RequestMapping("/validarUsuario")
-	public String ingresarCuenta(@ModelAttribute("propietario") Propietario objPropietario, BindingResult binRes) throws ParseException {
+	public String ingresarCuenta(@ModelAttribute("propietario") Propietario objPropietario, BindingResult binRes, Model model) throws ParseException {
 		List<Propietario> listaPropietarios;
 		objPropietario.setEmailPropietario(objPropietario.getEmailPropietario());
-		objPropietario.setContraseniaPropietario(objPropietario.getContraseniaPropietario());
-		listaPropietarios = rService.findByEmailAndPassword(objPropietario.getEmailPropietario(), objPropietario.getContraseniaPropietario());
-
-	
+		objPropietario.setContraseñaPropietario(objPropietario.getContraseñaPropietario());
+		listaPropietarios = rService.findByEmailAndPassword(objPropietario.getEmailPropietario(), objPropietario.getContraseñaPropietario());
+		
 		if (!listaPropietarios.isEmpty()) {
 			objPropietario = listaPropietarios.get(0);
-			sesionPropietario = objPropietario;
 			return "redirect:/vivienda/datos/" + objPropietario.getIdPropietario();
 		}
-		else 
+		else {
+			model.addAttribute("mensaje", "Datos incorrectos");
 			return "loginP";
+		}
 	}
 	
 }
