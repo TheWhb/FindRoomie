@@ -91,6 +91,7 @@
 						<h3 th:text="${NombreApellido}"></h3>
 						<p>"Aqui podria ir su presentacion de roomie"</p>
 						<h2 th:if="${mensaje != null}" th:text="${mensaje}"></h2>
+						<a th:href="@{'/roomie/modificar/'}+${idRoomie}" class="btn-sus1">Editar perfil</a>
 					</div>
 				</div>
 			</div>

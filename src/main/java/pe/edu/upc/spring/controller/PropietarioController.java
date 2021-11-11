@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sun.el.parser.ParseException;
 
 import pe.edu.upc.spring.model.Propietario;
+import pe.edu.upc.spring.model.Roomie;
 import pe.edu.upc.spring.service.IPropietarioService;
 
 @Controller
@@ -25,7 +26,10 @@ public class PropietarioController {
 	@Autowired
 	private IPropietarioService rService;
 	
-	private Propietario sesionPropietario;
+	Optional<Propietario> objPropietario;
+	
+	int IdPropietario;
+	String NombreApellido;
 	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
@@ -44,6 +48,14 @@ public class PropietarioController {
 		return "loginP";
 	}
 	
+	@RequestMapping("/datos/{id}")
+	public String CargarDatos(@PathVariable int id, Map<String, Object> model) {
+		objPropietario = rService.listarId(id);
+		IdPropietario = objPropietario.get().getIdPropietario();
+		NombreApellido = objPropietario.get().getNPropietario() + " " + objPropietario.get().getAPropietario();
+		return "redirect:/roomie/InicioR";
+	}
+	
 	@RequestMapping("/irRegistrar")
 	public String irPaginaRegistrar(Model model) {
 		model.addAttribute("propietario", new Propietario());
@@ -59,7 +71,6 @@ public class PropietarioController {
 		else {
 			boolean flag = rService.grabar(objPropietario);
 			if (flag) {
-				sesionPropietario = objPropietario;
 				model.addAttribute("mensaje", objPropietario.getNPropietario());
 				return "redirect:/vivienda/datos/" + objPropietario.getIdPropietario();
 			}
@@ -77,11 +88,14 @@ public class PropietarioController {
 		Optional<Propietario> objPropietario = rService.listarId(id);
 		if (objPropietario == null) {
 			objRedir.addFlashAttribute("mensaje", "No se pudo acceder");
-			return "redirect:/propietario/listar";
+			return "redirect:/vivienda/inicioP";
 		}
 		else {
-			model.addAttribute("propietario", objPropietario);
-			return "propietario";
+			model.addAttribute("idPropietario", IdPropietario);
+			model.addAttribute("NAPropietario", NombreApellido);
+			if(objPropietario.isPresent())
+				objPropietario.ifPresent(o->model.addAttribute("propietario", o));
+			return "registroP";
 		}
 	}
 		

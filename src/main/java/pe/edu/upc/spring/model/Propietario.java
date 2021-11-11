@@ -53,8 +53,8 @@ public class Propietario implements Serializable {
 	@Column(name="NacionalidadPropietario", length=30, nullable=false)
 	private String NacionalidadPropietario;
 	
-	@Column(name="ContraseniaPropietario", length=10, nullable=false)
-	private String ContraseniaPropietario;
+	@Column(name="ContraseñaPropietario", length=10, nullable=false)
+	private String ContraseñaPropietario;
 
 	public Propietario() {
 		super();
@@ -63,7 +63,7 @@ public class Propietario implements Serializable {
 	public Propietario(int idPropietario, String nPropietario, String aPropietario, int dNIPropietario,
 			String usernamePropietario, Date dNacimientoPropietario, String generoPropietario,
 			int nroCelularPropietario, String emailPropietario, String nacionalidadPropietario,
-			String contraseniaPropietario) {
+			String contraseñaPropietario) {
 		super();
 		this.idPropietario = idPropietario;
 		NPropietario = nPropietario;
@@ -75,7 +75,7 @@ public class Propietario implements Serializable {
 		NroCelularPropietario = nroCelularPropietario;
 		EmailPropietario = emailPropietario;
 		NacionalidadPropietario = nacionalidadPropietario;
-		ContraseniaPropietario = contraseniaPropietario;
+		ContraseñaPropietario = contraseñaPropietario;
 	}
 
 	public int getIdPropietario() {
@@ -158,12 +158,12 @@ public class Propietario implements Serializable {
 		NacionalidadPropietario = nacionalidadPropietario;
 	}
 
-	public String getContraseniaPropietario() {
-		return ContraseniaPropietario;
+	public String getContraseñaPropietario() {
+		return ContraseñaPropietario;
 	}
 
-	public void setContraseniaPropietario(String contraseniaPropietario) {
-		ContraseniaPropietario = contraseniaPropietario;
+	public void setContraseñaPropietario(String contraseniaPropietario) {
+		ContraseñaPropietario = contraseniaPropietario;
 	}
 
 	

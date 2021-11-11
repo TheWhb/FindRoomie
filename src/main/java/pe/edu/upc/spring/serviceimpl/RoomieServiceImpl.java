@@ -46,8 +46,10 @@ public class RoomieServiceImpl implements IRoomieService {
 	}
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public List<Roomie> findByEmailAndPassword(String EmailRoomie, String ContraseñaRoomie) {
 		return dRoomie.findByEmailAndPassword(EmailRoomie, ContraseñaRoomie);
 	}
+
+
 }

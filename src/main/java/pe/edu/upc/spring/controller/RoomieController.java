@@ -104,11 +104,14 @@ public class RoomieController {
 		Optional<Roomie> objRoomie = rService.listarId(id);
 		if (objRoomie == null) {
 			objRedir.addFlashAttribute("mensaje", "No se pudo acceder");
-			return "redirect:/propietario/listar";
+			return "redirect:/roomie/inicioR";
 		}
 		else {
-			model.addAttribute("roomie", objRoomie);
-			return "roomie";
+			model.addAttribute("idRoomie", IdRoomie);
+			model.addAttribute("NARoomie", NombreApellido);
+			if(objRoomie.isPresent())
+				objRoomie.ifPresent(o->model.addAttribute("roomie", o));
+			return "registroR";
 		}
 	}
 	

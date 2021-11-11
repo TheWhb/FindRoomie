@@ -34,6 +34,7 @@
 			<form class="registroRR"  th:action="@{/roomie/registrar}" method="post" th:object="${roomie}">
 				<div>
 					<h2>Registro</h2>
+					<input type="text" th:field="*{idRoomie}" hidden="hidden"></input>
 					<label id="l-RE-NombresCompletos" for="names">Nombres Completos</label><br/>
 					<input type="text" id="i-RE-nombrescompletos" placeholder="ej: Juan Pedro" th:field="*{NRoomie}" maxlength="60">
 					<br/>

@@ -90,6 +90,7 @@
 						<p th:text="${Presentacion}"></p>
 						<p th:text="${Premiun}"></p>
 						<h2 th:if="${mensaje != null}" th:text="${mensaje}"></h2>
+						<a th:href="@{'/propietario/modificar/'}+${idPropietario}" class="btn-sus1">Editar perfil</a>
 					</div>
 				</div>
 			</div>

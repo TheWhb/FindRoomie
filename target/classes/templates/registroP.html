@@ -34,6 +34,7 @@
 			<form class="registroRR" th:action="@{/propietario/registrar}" method="post" th:object="${propietario}">
 				<div>
 					<h2>Registro</h2>
+					<input type="text" th:field="*{idPropietario}" hidden="hidden"></input>
 					<label id="l-RE-NombresCompletos" for="names">Nombres Completos</label><br/>
 					<input type="text" id="i-RE-nombrescompletos" placeholder="ej: Juan Pedro"
 					th:field="*{NPropietario}" maxlength="60"/>
@@ -104,7 +105,7 @@
 					<br/>
 					<br/>
 					<label id="l-RE-password" for="password">Contraseña</label><br/>
-					<input type="password" id="i-RE-password" th:field="*{ContraseniaPropietario}"
+					<input type="password" id="i-RE-password" th:field="*{ContraseñaPropietario}"
 					maxlength="10"><br><br>
 					<input type="checkbox" onclick="showPassword()">Mostrar contraseña
 					
