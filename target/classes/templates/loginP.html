@@ -21,7 +21,7 @@
 		<h1 class="logo_findr">FindRoomie</h1>
 		<div class="navigation">
 			<ul class="enlaces">
-				<li><a th:href="@{/propietario/bienvenido}" class="header-link">Inicio</a></li>
+				<li><a th:href="@{/bienvenido}" class="header-link">Inicio</a></li>
 				<li><a href="#" class="header-link">Sobre Nosotros</a></li>
 				<li><a href="#" class="header-link">Lugares</a></li>
 				<li><a href="#" class="header-link">Contacto</a></li>
@@ -42,29 +42,22 @@
 							aquí.</a>
 					</p>
 					<br />
-					<form class="loginRR">
+					<form class="loginRR" th:action="@{/propietario/validarUsuario}" method="post" th:object="${propietario}">
 						<label id="mailL" for="emailR">Email:</label><br/>
-						<input type="text" id="correoElectronico"></input>
+						<input type="text" id="correoElectronico" th:field="*{EmailPropietario}"></input>
 						<br/>
 						<br/>
 						<label id="passwL" for="passwordR">Contraseña:</label><br/>
-						<input type="password" id="contrasenia"></input>
+						<input type="password" id="contrasenia"  th:field="*{ContraseñaPropietario}"></input>
 						<br/>
 						<br/>
 						<button type="submit" id="btnEntrar">Únete</button>
 					</form>
-
-
-
-
-
+					<h3 th:if="${mensaje != null}" th:text="${mensaje}"></h3>
 				</div>
 			</div>
 		</div>
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
-
-	
-	
 </body>
 </html>

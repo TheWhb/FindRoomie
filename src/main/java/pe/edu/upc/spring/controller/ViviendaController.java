@@ -18,10 +18,10 @@ import com.sun.el.parser.ParseException;
 
 import pe.edu.upc.spring.model.Vivienda;
 import pe.edu.upc.spring.model.Propietario;
-
-
+import pe.edu.upc.spring.model.SuscripcionXPropietario;
 import pe.edu.upc.spring.service.IViviendaService;
 import pe.edu.upc.spring.service.IPropietarioService;
+import pe.edu.upc.spring.service.ISuscripcionXPropietarioService;
 
 @Controller
 @RequestMapping("/vivienda")
@@ -32,23 +32,46 @@ public class ViviendaController {
 	@Autowired
 	private IViviendaService vService;
 	
+	@Autowired
+	private ISuscripcionXPropietarioService srService;
 	
+	Optional<Propietario> objPropietario;
+	int IdPropietario;
+	String NombreApellido;
+	String Correo;
+	String Presentacion;
+	Boolean Premiun;
 	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
 		return "bienvenido"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
 	}
 	
+	@RequestMapping("/datos/{id}")
+	public String CargarDatos(@PathVariable int id, Map<String, Object> model) {
+		objPropietario = rService.listarId(id);
+		IdPropietario = objPropietario.get().getIdPropietario();
+		NombreApellido = objPropietario.get().getNPropietario() + " " + objPropietario.get().getAPropietario();
+		Correo = objPropietario.get().getEmailPropietario();
+		Presentacion = "DNI: " + objPropietario.get().getDNIPropietario() + " Celular: " + objPropietario.get().getNroCelularPropietario();
+		return "redirect:/vivienda/InicioP";
+	}
+	
 	@RequestMapping("/InicioP")
 	public String irPaginaListadoViviendas(Map<String, Object> model) {
-		model.put("mensajeBien", ", propietario");
+		model.put("idPropietario", IdPropietario);
+		model.put("NombreApellido", NombreApellido);
+		model.put("Correo", Correo);
+		model.put("Presentacion", Presentacion);
+		model.put("Premiun", Premiun);
 		model.put("listaViviendas", vService.listar());
-		return "inicioP"; // "listViviendas" es una pagina del frontEnd para listar
+		return "inicioP";
 	}
 
 	@RequestMapping("/irRegistrar")
 	public String irPaginaRegistrar(Model model) {
-		model.addAttribute("listaPropietarios", rService.listar());
+		model.addAttribute("idPropietario", IdPropietario);
+		model.addAttribute("NAPropietario", NombreApellido);
 
 		model.addAttribute("vivienda", new Vivienda());
 		model.addAttribute("propietario", new Propietario());
@@ -61,7 +84,8 @@ public class ViviendaController {
 	{
 		if (binRes.hasErrors())
 		{
-			model.addAttribute("listaPropietarios", rService.listar());
+			model.addAttribute("idPropietario", IdPropietario);
+			model.addAttribute("NAPropietario", NombreApellido);
 			return "registroV";
 		}
 		else {
@@ -85,7 +109,8 @@ public class ViviendaController {
 			return "redirect:/vivienda/InicioP";
 		}
 		else {
-			model.addAttribute("listaPropietarios", rService.listar());
+			model.addAttribute("idPropietario", IdPropietario);
+			model.addAttribute("NAPropietario", NombreApellido);
 			if(objVivienda.isPresent())
 				objVivienda.ifPresent(o->model.addAttribute("vivienda", o));
 			return "registroV";
@@ -106,9 +131,16 @@ public class ViviendaController {
 			model.put("mensaje", "Ocurrio un error");
 			model.put("listaViviendas", vService.listar());
 		}
+		model.put("idPropietario", IdPropietario);
+		model.put("NombreApellido", NombreApellido);
+		model.put("Correo", Correo);
+		model.put("Presentacion", Presentacion);
+		model.put("Premiun", Premiun);
 		return "inicioP";
 	}
 		
+	
+	
 	@RequestMapping("/listar")
 	public String listar(Map<String, Object> model ) {
 		model.put("listaViviendas", vService.listar());

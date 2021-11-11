@@ -47,14 +47,14 @@ public class Propietario implements Serializable {
 	@Column(name="NroCelularPropietario", length=9, nullable=false)
 	private int NroCelularPropietario;
 	
-	@Column(name="EmailPropietario", length=30, nullable=false)
+	@Column(name="EmailPropietario", length=30, nullable=false /*, unique = true*/)
 	private String EmailPropietario;
 	
 	@Column(name="NacionalidadPropietario", length=30, nullable=false)
 	private String NacionalidadPropietario;
 	
-	@Column(name="ContraseñaPropietario", length=10, nullable=false)
-	private String ContraseñaPropietario;
+	@Column(name="ContraseniaPropietario", length=10, nullable=false)
+	private String ContraseniaPropietario;
 
 	public Propietario() {
 		super();
@@ -63,7 +63,7 @@ public class Propietario implements Serializable {
 	public Propietario(int idPropietario, String nPropietario, String aPropietario, int dNIPropietario,
 			String usernamePropietario, Date dNacimientoPropietario, String generoPropietario,
 			int nroCelularPropietario, String emailPropietario, String nacionalidadPropietario,
-			String contraseñaPropietario) {
+			String contraseniaPropietario) {
 		super();
 		this.idPropietario = idPropietario;
 		NPropietario = nPropietario;
@@ -75,7 +75,7 @@ public class Propietario implements Serializable {
 		NroCelularPropietario = nroCelularPropietario;
 		EmailPropietario = emailPropietario;
 		NacionalidadPropietario = nacionalidadPropietario;
-		ContraseñaPropietario = contraseñaPropietario;
+		ContraseniaPropietario = contraseniaPropietario;
 	}
 
 	public int getIdPropietario() {
@@ -158,13 +158,15 @@ public class Propietario implements Serializable {
 		NacionalidadPropietario = nacionalidadPropietario;
 	}
 
-	public String getContraseñaPropietario() {
-		return ContraseñaPropietario;
+	public String getContraseniaPropietario() {
+		return ContraseniaPropietario;
 	}
 
-	public void setContraseñaPropietario(String contraseñaPropietario) {
-		ContraseñaPropietario = contraseñaPropietario;
+	public void setContraseniaPropietario(String contraseniaPropietario) {
+		ContraseniaPropietario = contraseniaPropietario;
 	}
+
+	
 
 	
 }

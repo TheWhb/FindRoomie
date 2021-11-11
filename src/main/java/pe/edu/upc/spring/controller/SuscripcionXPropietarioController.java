@@ -23,7 +23,7 @@ import pe.edu.upc.spring.service.ISuscripcionService;
 import pe.edu.upc.spring.service.IPropietarioService;
 
 @Controller
-@RequestMapping("/SuscripcionXPropietario/")
+@RequestMapping("/SuscripcionXPropietario")
 public class SuscripcionXPropietarioController {
 	@Autowired
 	private ISuscripcionXPropietarioService srService;
@@ -34,26 +34,34 @@ public class SuscripcionXPropietarioController {
 	@Autowired
 	private IPropietarioService rService;
 	
-	@RequestMapping("/bienvenido")
-	public String irPaginaBienvenida() {
-		return "bienvenido"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
+	Optional<Propietario> objPropietario;
+	int IdPropietario;
+	String NombreApellido;
+	
+	@RequestMapping("/datos/{id}")
+	public String CargarDatos(@PathVariable int id, Map<String, Object> model) {
+		objPropietario = rService.listarId(id);
+		IdPropietario = objPropietario.get().getIdPropietario();
+		NombreApellido = objPropietario.get().getNPropietario() + " " + objPropietario.get().getAPropietario();
+		return "redirect:/SuscripcionXPropietario/";
 	}
 	
 	@RequestMapping("/")
 	public String irPaginaListadoPublicacionPropietarios(Map<String, Object> model) {
-		model.put("listaSuscripcionXRoomies", srService.listar());
-		return "listPlanSuscripcionRoomies"; // "listPropietarios" es una pagina del frontEnd para listar
+		
+		return "pSuscripcionP";
 	}
 
 	@RequestMapping("/irRegistrar")
 	public String irPaginaRegistrar(Model model) {
+		model.addAttribute("idPropietario", IdPropietario);
+		model.addAttribute("NAPropietario", NombreApellido);
 		model.addAttribute("listaSuscripciones", sService.listar());
-		model.addAttribute("listaPropietarios", rService.listar());
 		
 		model.addAttribute("suscripcionXPropietario", new SuscripcionXPropietario());
 		model.addAttribute("suscripcion", new Suscripcion());
 		model.addAttribute("propietario", new Propietario());
-		return "planSuscripcionPropietario"; // "propietario" es una pagina del frontEnd para insertar y/o modificar
+		return "registrarSuscripcionP";
 	}
 	
 	@RequestMapping("/registrar")
@@ -61,14 +69,14 @@ public class SuscripcionXPropietarioController {
 		throws ParseException
 	{
 		if (binRes.hasErrors())
-			return "planSuscripcionPropietario";
+			return "registrarSuscripcionP";
 		else {
 			boolean flag = srService.grabar(objSuscripcionXPropietario);
 			if (flag)
-				return "redirect:/planSuscripcionPropietario/listar";
+				return "redirect:/vivienda/datos/" + objSuscripcionXPropietario.getPropietarioSuscripcionXPropietario().getIdPropietario();
 			else {
-				model.addAttribute("mensaje", "No se pudo acceder");
-				return "redirect:/planSuscripcionPropietario/irRegistrar";
+				model.addAttribute("mensaje", "No se pudo comprar");
+				return "redirect:/SuscripcionXPropietario/irRegistrar";
 			}
 		}
 	}

@@ -30,19 +30,19 @@ public class SuscripcionXPropietario implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name ="idPropietario", nullable=false)
-	private Roomie roomieSuscripcionXPropietario;
+	private Propietario propietarioSuscripcionXPropietario;
 	
 	public SuscripcionXPropietario() {
 		super();
 	}
 
 	public SuscripcionXPropietario(int idSuscripcionXRoomie, Boolean renovableSuscripcionXPropietario,
-			Suscripcion suscripcionSuscripcionXPropietario, Roomie roomieSuscripcionXPropietario) {
+			Suscripcion suscripcionSuscripcionXPropietario, Propietario propietarioSuscripcionXPropietario) {
 		super();
 		this.idSuscripcionXRoomie = idSuscripcionXRoomie;
 		RenovableSuscripcionXPropietario = renovableSuscripcionXPropietario;
 		this.suscripcionSuscripcionXPropietario = suscripcionSuscripcionXPropietario;
-		this.roomieSuscripcionXPropietario = roomieSuscripcionXPropietario;
+		this.propietarioSuscripcionXPropietario = propietarioSuscripcionXPropietario;
 	}
 
 	public int getIdSuscripcionXRoomie() {
@@ -69,12 +69,12 @@ public class SuscripcionXPropietario implements Serializable {
 		this.suscripcionSuscripcionXPropietario = suscripcionSuscripcionXPropietario;
 	}
 
-	public Roomie getRoomieSuscripcionXPropietario() {
-		return roomieSuscripcionXPropietario;
+	public Propietario getPropietarioSuscripcionXPropietario() {
+		return propietarioSuscripcionXPropietario;
 	}
 
-	public void setRoomieSuscripcionXPropietario(Roomie roomieSuscripcionXPropietario) {
-		this.roomieSuscripcionXPropietario = roomieSuscripcionXPropietario;
+	public void setPropietarioSuscripcionXPropietario(Propietario propietarioSuscripcionXPropietario) {
+		this.propietarioSuscripcionXPropietario = propietarioSuscripcionXPropietario;
 	}
 
 	

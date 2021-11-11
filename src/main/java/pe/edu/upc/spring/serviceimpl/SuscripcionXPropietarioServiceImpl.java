@@ -45,5 +45,9 @@ public class SuscripcionXPropietarioServiceImpl implements ISuscripcionXPropieta
 		return dSuscripcionXPropietarios.findAll();
 	}
 
-
+	@Override
+	@Transactional(readOnly = true)
+	public List<SuscripcionXPropietario> buscarIdPropietario(int idPropietario){
+		return dSuscripcionXPropietarios.buscarPropietario(idPropietario);
+	}
 }

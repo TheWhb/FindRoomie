@@ -21,7 +21,7 @@
 		<h1 class="logo_findr">FindRoomie</h1>
 		<div class="navigation">
 			<ul class="enlaces">
-				<li><a th:href="@{/propietario/bienvenido}" class="header-link">Inicio</a></li>
+				<li><a th:href="@{/bienvenido}" class="header-link">Inicio</a></li>
 				<li><a href="#" class="header-link">Sobre Nosotros</a></li>
 				<li><a href="#" class="header-link">Lugares</a></li>
 				<li><a href="#" class="header-link">Contacto</a></li>
@@ -36,15 +36,18 @@
 					<h2>Registro</h2>
 					<label id="l-RE-NombresCompletos" for="names">Nombres Completos</label><br/>
 					<input type="text" id="i-RE-nombrescompletos" placeholder="ej: Juan Pedro"
-					th:field="*{NPropietario}" maxlength="60"/>					<br/>
+					th:field="*{NPropietario}" maxlength="60"/>
+					<br/>
 					<br/>
 					<label id="l-RE-ApellidosCompletos" for="apellidos">Apellidos Completos</label><br/>
 					<input type="text" id="i-RE-apellidoscompletos" placeholder="ej: Perez Quispe" 
-					th:field="*{APropietario}" maxlength="60"/>					<br/>
+					th:field="*{APropietario}" maxlength="60"/>
+					<br/>
 					<br/>
 					<label id="l-RE-username" for="username">Nombre de usuario</label><br/>
 					<input type="text" id="i-RE-username" th:field="*{UsernamePropietario}"
-					maxlength="60"/>					<br/>
+					maxlength="60"/>
+					<br/>
 					<br/>
 					<label id="l-RE-fnacimiento" for="date">Fecha de nacimiento</label><br/>
 					<input type="date" id="ca-RE-fnacimiento" th:field="*{DNacimientoPropietario}"/>
@@ -69,7 +72,8 @@
 				<div>
 					<label id="l-RE-email" for="names">Email</label><br/>
 					<input type="text" id="i-RE-email" placeholder="ej: juanpedro@ejemplo.com" 
-					th:field="*{EmailPropietario}" maxlength="30">					<br/>
+					th:field="*{EmailPropietario}" maxlength="30">
+					<br/>
 					<br/>
 					<label id="l-RE-genero" for="genero">Género</label><br/>
 					<select id="cbo-RE-genero" name="genero" th:field="*{GeneroPropietario}">
@@ -81,11 +85,13 @@
 					<br/>
 					<label id="l-RE-nacionalidad" for="nacionalidad">Nacionalidad</label><br/>
 					<input type="text" id="i-RE-nacionalidad" th:field="*{NacionalidadPropietario}"
-					maxlength="30">					<br/>
+					maxlength="30">
+					<br/>
 					<br/>
 					<label id="l-RE-DNI"  for="dni">DNI</label><br/>
 					<input type="text" id="i-RE-DNI" onkeypress="return isNumberKeyy(event)" 
-					th:field="*{DNIPropietario}" maxlength="8">					<script>
+					th:field="*{DNIPropietario}" maxlength="8">
+					<script>
 						function isNumberKeyy(evt)
 						{
 							var charCode = (evt.which) ? evt.which : event.keyCode
@@ -98,8 +104,8 @@
 					<br/>
 					<br/>
 					<label id="l-RE-password" for="password">Contraseña</label><br/>
-					<input type="password" id="i-RE-password" th:field="*{ContraseñaPropietario}"
-					maxlength="10"><br><br>	
+					<input type="password" id="i-RE-password" th:field="*{ContraseniaPropietario}"
+					maxlength="10"><br><br>
 					<input type="checkbox" onclick="showPassword()">Mostrar contraseña
 					
 					<script>
@@ -126,12 +132,8 @@
 		</div>
 		<div class="circle1"></div>
 		<div class="circle2"></div>
-		
-		
-	
-	</div>
+		</div>
 	</main>
 	<div th:replace="fragments/footer :: footer"></div>
-
 </body>
 </html>

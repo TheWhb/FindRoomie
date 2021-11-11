@@ -21,7 +21,7 @@
 		<h1 class="logo_findr">FindRoomie</h1>
 		<div class="navigation">
 			<ul class="enlaces">
-				<li><a th:href="@{/roomie/bienvenido}" class="header-link">Inicio</a></li>
+				<li><a th:href="@{/bienvenido}" class="header-link">Inicio</a></li>
 				<li><a href="#" class="header-link">Sobre Nosotros</a></li>
 				<li><a href="#" class="header-link">Lugares</a></li>
 				<li><a href="#" class="header-link">Contacto</a></li>
@@ -47,7 +47,7 @@
 					<br/>
 					<br/>
 					<label id="l-RE-fnacimiento" for="date">Fecha de nacimiento</label><br/>
-					<input type="date" id="ca-RE-fnacimiento" th:field="*{DNacimientoRoomie}" >
+					<input type="date" id="ca-RE-fnacimiento" th:field="*{DNacimientoRoomie}">
 					<br/>
 					<br/>
 					<label id="l-RE-nrocelular"  for="nrocel">Nro de celular</label><br/>
@@ -97,7 +97,7 @@
 					<br/>
 					<br/>
 					<label id="l-RE-password" for="password">Contraseña</label><br/>
-					<input type="password" id="i-RE-password" th:field="*{ContraseñaRoomie}" maxlength="10"><br><br>
+					<input type="password" id="i-RE-password" th:field="*{ContraseñaRoomie}"><br><br>
 					<input type="checkbox" onclick="showPassword()">Mostrar contraseña
 					
 					<script>

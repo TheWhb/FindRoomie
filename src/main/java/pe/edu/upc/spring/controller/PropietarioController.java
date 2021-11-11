@@ -1,5 +1,6 @@
 package pe.edu.upc.spring.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -24,6 +25,8 @@ public class PropietarioController {
 	@Autowired
 	private IPropietarioService rService;
 	
+	private Propietario sesionPropietario;
+	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
 		return "bienvenido"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
@@ -36,8 +39,8 @@ public class PropietarioController {
 	}
 
 	@RequestMapping("/irLogin")
-	public String irPaginaLogin() {
-		
+	public String irPaginaLogin(Model model) {
+		model.addAttribute("propietario", new Propietario());
 		return "loginP";
 	}
 	
@@ -56,8 +59,9 @@ public class PropietarioController {
 		else {
 			boolean flag = rService.grabar(objPropietario);
 			if (flag) {
+				sesionPropietario = objPropietario;
 				model.addAttribute("mensaje", objPropietario.getNPropietario());
-				return "redirect:/vivienda/InicioP";
+				return "redirect:/vivienda/datos/" + objPropietario.getIdPropietario();
 			}
 			else {
 				model.addAttribute("mensaje", "No se pudo acceder");
@@ -101,6 +105,23 @@ public class PropietarioController {
 	public String listar(Map<String, Object> model ) {
 		model.put("listaPropietarios", rService.listar());
 		return "listPropietarios";
+	}
+	
+	@RequestMapping("/validarUsuario")
+	public String ingresarCuenta(@ModelAttribute("propietario") Propietario objPropietario, BindingResult binRes, Model model) throws ParseException {
+		List<Propietario> listaPropietarios;
+		objPropietario.setEmailPropietario(objPropietario.getEmailPropietario());
+		objPropietario.setContraseñaPropietario(objPropietario.getContraseñaPropietario());
+		listaPropietarios = rService.findByEmailAndPassword(objPropietario.getEmailPropietario(), objPropietario.getContraseñaPropietario());
+		
+		if (!listaPropietarios.isEmpty()) {
+			objPropietario = listaPropietarios.get(0);
+			return "redirect:/vivienda/datos/" + objPropietario.getIdPropietario();
+		}
+		else {
+			model.addAttribute("mensaje", "Datos incorrectos");
+			return "loginP";
+		}
 	}
 	
 }
