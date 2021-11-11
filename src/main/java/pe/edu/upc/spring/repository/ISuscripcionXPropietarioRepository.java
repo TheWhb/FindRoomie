@@ -11,6 +11,6 @@ import pe.edu.upc.spring.model.SuscripcionXPropietario;
 
 @Repository
 public interface ISuscripcionXPropietarioRepository extends JpaRepository<SuscripcionXPropietario, Integer>{
-	@Query("from SuscripcionXPropietario sp where sp.propietarioSuscripcionXPropietario like :id")
+	@Query("from SuscripcionXPropietario sp where sp.propietarioSuscripcionXPropietario.idPropietario like :id")
 	List<SuscripcionXPropietario> buscarPropietario(@Param("id") int idPropietario);
 }

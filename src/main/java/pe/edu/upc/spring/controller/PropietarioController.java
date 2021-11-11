@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sun.el.parser.ParseException;
 
 import pe.edu.upc.spring.model.Propietario;
-import pe.edu.upc.spring.model.Roomie;
 import pe.edu.upc.spring.service.IPropietarioService;
 
 @Controller

@@ -34,26 +34,33 @@ public class SuscripcionXRoomieController {
 	@Autowired
 	private IRoomieService rService;
 	
-	@RequestMapping("/bienvenido")
-	public String irPaginaBienvenida() {
-		return "bienvenido"; // "bienvenido" es una pagina del frontEnd, pagina de Inicio
+	Optional<Roomie> objRoomie;
+	int IdRoomie;
+	String NombreApellido;
+	
+	@RequestMapping("/datos/{id}")
+	public String CargarDatos(@PathVariable int id, Map<String, Object> model) {
+		objRoomie = rService.listarId(id);
+		IdRoomie = objRoomie.get().getIdRoomie();
+		NombreApellido = objRoomie.get().getNRoomie() + " " + objRoomie.get().getARoomie();
+		return "redirect:/SuscripcionXRoomie/";
 	}
 	
 	@RequestMapping("/")
 	public String irPaginaListadoPublicacionRoomies(Map<String, Object> model) {
-		model.put("listaSuscripcionXRoomies", srService.listar());
-		return "listPlanSuscripcionRoomies"; // "listPropietarios" es una pagina del frontEnd para listar
+		return "pSuscripcionR";
 	}
 
 	@RequestMapping("/irRegistrar")
 	public String irPaginaRegistrar(Model model) {
+		model.addAttribute("idRoomie", IdRoomie);
+		model.addAttribute("NARoomie", NombreApellido);
 		model.addAttribute("listaSuscripciones", sService.listar());
-		model.addAttribute("listaRoomies", rService.listar());
 		
 		model.addAttribute("suscripcionXRoomie", new SuscripcionXRoomie());
 		model.addAttribute("suscripcion", new Suscripcion());
 		model.addAttribute("roomie", new Roomie());
-		return "planSuscripcionRoomie"; // "propietario" es una pagina del frontEnd para insertar y/o modificar
+		return "registrarSuscripcionR";
 	}
 	
 	@RequestMapping("/registrar")
@@ -61,14 +68,14 @@ public class SuscripcionXRoomieController {
 		throws ParseException
 	{
 		if (binRes.hasErrors())
-			return "planSuscripcionRoomie";
+			return "registrarSuscripcionR";
 		else {
 			boolean flag = srService.grabar(objSuscripcionXRoomie);
 			if (flag)
-				return "redirect:/planSuscripcionRoomie/listar";
+				return "redirect:/roomie/datos/" + objSuscripcionXRoomie.getRoomieSuscripcionXRoomie().getIdRoomie();
 			else {
 				model.addAttribute("mensaje", "No se pudo acceder");
-				return "redirect:/planSuscripcionRoomie/irRegistrar";
+				return "redirect:/SuscripcionXRoomie/irRegistrar";
 			}
 		}
 	}

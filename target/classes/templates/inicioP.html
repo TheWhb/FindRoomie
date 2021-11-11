@@ -27,9 +27,8 @@
 				<li><a href="#" class="header-link">Lugares</a></li>
 				<li><a href="#" class="header-link">Contacto</a></li>
 				<li><a href="#" class="header-link">Configuración</a></li>
-				<li><a
-					th:href="@{'/SuscripcionXPropietario/datos/'}+${idPropietario}"
-					class="btn-sus1">Premium</a></li>
+				<li><a th:if="${Premiun == false}" th:href="@{'/SuscripcionXPropietario/datos/'}+${idPropietario}" class="btn-sus1">Premium</a></li>
+				<li><a th:if="${Premiun == true}" th:href="" class="btn-sus1">Cancelar Premium</a></li>
 			</ul>
 		</div>
 	</header>
@@ -88,7 +87,7 @@
 						<h3 th:text="${NombreApellido}"></h3>
 						<h4 th:text="${Correo}"></h4>
 						<p th:text="${Presentacion}"></p>
-						<p th:text="${Premiun}"></p>
+						<p th:text="${mensajePremiun}"></p>
 						<h2 th:if="${mensaje != null}" th:text="${mensaje}"></h2>
 						<a th:href="@{'/propietario/modificar/'}+${idPropietario}" class="btn-sus1">Editar perfil</a>
 					</div>
