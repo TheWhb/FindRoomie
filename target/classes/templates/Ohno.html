@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8"></meta>
+<title>Error</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<link th:href="@{/styles/main.css}" rel="stylesheet" />
+
+
+<link href='https://fonts.googleapis.com/css?family=Be+Vietnam+Pro'
+	rel='stylesheet' type='text/css' />
+
+</head>
+
+<body>
+	<header>
+		<h1 class="logo_findr">FindRoomie</h1>
+		<div class="navigation">
+			<ul class="enlaces">
+				<li><a href="#" class="header-link">Inicio</a></li>
+				<li><a href="#" class="header-link">Sobre Nosotros</a></li>
+				<li><a href="#" class="header-link">Lugares</a></li>
+				<li><a href="#" class="header-link">Contacto</a></li>
+				<li><a href="#" class="header-link">Configuración</a></li>
+				
+				
+			</ul>
+		</div>
+	</header>
+	<main>
+	<div class="ohno">
+		<h1>Oh no! No tienes acceso a esta página :((((</h1>
+		<img src="https://www.pngitem.com/pimgs/b/735-7357168_doge-png.png" alt="Ohno">
+
+	</div>
+	
+	</main>
+	<div th:replace="fragments/footer :: footer"></div>
+	
+	
+	
+</body>
+</html>
