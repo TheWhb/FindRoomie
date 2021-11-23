@@ -11,4 +11,5 @@ public interface IRoomieService {
 	public Optional<Roomie> listarId(int idRoomie);
 	public List<Roomie> listar();
 	public List<Roomie> findByEmailAndPassword(String EmailRoomie, String ContraseñaRoomie);
+	public Roomie findByEmail(String email);
 }

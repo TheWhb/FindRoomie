@@ -47,7 +47,7 @@ public class Roomie implements Serializable {
 	private String GeneroRoomie;
 	
 	@Column(name="NroCelularRoomie", length=9, nullable=false)
-	private int NroCelularRoomie;
+	private String NroCelularRoomie;
 	
 	@Column(name="EmailRoomie", length=30, nullable=false)
 	private String EmailRoomie;
@@ -58,19 +58,19 @@ public class Roomie implements Serializable {
 	@Column(name="PresentacionRoomie", length=200, nullable=false)
 	private String PresentacionRoomie;
 	
-	@Column(name="ContraseñaRoomie", length=10, nullable=false)
+	@Column(name="ContraseñaRoomie", length=70, nullable=false)
 	private String ContraseñaRoomie;
 	
 	@ManyToOne
 	@JoinColumn(name ="idVivienda", nullable=true)
 	private Vivienda viviendaRoomie;
-
+	//aea@gmail.com
 	public Roomie() {
 		super();
 	}
 
 	public Roomie(int idRoomie, String nRoomie, String aRoomie, String dNIRoomie, String usernameRoomie,
-			Date dNacimientoRoomie, String generoRoomie, int nroCelularRoomie, String emailRoomie,
+			Date dNacimientoRoomie, String generoRoomie, String nroCelularRoomie, String emailRoomie,
 			String nacionalidadRoomie, String presentacionRoomie, String contraseñaRoomie, Vivienda viviendaRoomie) {
 		super();
 		this.idRoomie = idRoomie;
@@ -144,11 +144,11 @@ public class Roomie implements Serializable {
 		GeneroRoomie = generoRoomie;
 	}
 
-	public int getNroCelularRoomie() {
+	public String getNroCelularRoomie() {
 		return NroCelularRoomie;
 	}
 
-	public void setNroCelularRoomie(int nroCelularRoomie) {
+	public void setNroCelularRoomie(String nroCelularRoomie) {
 		NroCelularRoomie = nroCelularRoomie;
 	}
 

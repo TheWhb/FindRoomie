@@ -1,10 +1,12 @@
 package pe.edu.upc.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,10 +20,13 @@ import com.sun.el.parser.ParseException;
 
 import pe.edu.upc.spring.model.Roomie;
 import pe.edu.upc.spring.model.SuscripcionXRoomie;
+import pe.edu.upc.spring.model.Role;
+import pe.edu.upc.spring.model.Users;
 import pe.edu.upc.spring.model.Vivienda;
 import pe.edu.upc.spring.service.IRoomieService;
 import pe.edu.upc.spring.service.ISuscripcionXRoomieService;
 import pe.edu.upc.spring.service.IViviendaService;
+import pe.edu.upc.spring.serviceimpl.JpaUserDetailsService;
 
 @Controller
 @RequestMapping("/roomie")
@@ -43,6 +48,11 @@ public class RoomieController {
 	Boolean Premiun;
 	Vivienda ViviendaAlquilada;
 	int IdSuscripcion;
+	private String pasadaContraseña;
+	@Autowired
+	private JpaUserDetailsService uService;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
@@ -105,21 +115,85 @@ public class RoomieController {
 	}
 	
 	@RequestMapping("/registrar")
-	public String registrar(@ModelAttribute Roomie objRoomie, BindingResult binRes, Model model) 
+	public String registrar(@ModelAttribute Roomie obRoomie, BindingResult binRes, Model model) 
 		throws ParseException
 	{
-		if (binRes.hasErrors())
-			return "registroR";
-		else {
-			objRoomie.setViviendaRoomie(ViviendaAlquilada);
-			boolean flag = rService.grabar(objRoomie);
-			if (flag) 
-				return "redirect:/roomie/datos/" + objRoomie.getIdRoomie();
+		if (binRes.hasErrors()) {
+			
+			if(obRoomie.getIdRoomie() > 0) {
+				return "registroR";
+			}
 			else {
-				model.addAttribute("mensaje", "No se pudo acceder");
-				return "redirect:/roomie/irRegistrar";
+				return "roomie";
+			}	
+		} else {
+			
+			if(obRoomie.getIdRoomie() > 0) {
+				if(obRoomie.getContraseñaRoomie()=="") {
+					obRoomie.setContraseñaRoomie(pasadaContraseña);
+				}else {
+					String bcryptPassword = passwordEncoder.encode(obRoomie.getContraseñaRoomie());
+					obRoomie.setContraseñaRoomie(bcryptPassword);
+				}
+			}
+			else {
+				String bcryptPassword = passwordEncoder.encode(obRoomie.getContraseñaRoomie());
+				obRoomie.setContraseñaRoomie(bcryptPassword);	
+			}
+			Boolean flagUsers;
+			Boolean flag;
+			
+			if(obRoomie.getIdRoomie() > 0) {
+				 flagUsers = rUsers(obRoomie);
+				 flag = rService.grabar(obRoomie);
+			}else {
+				
+				Users users= uService.findByUsername(obRoomie.getEmailRoomie());
+				if(users!=null) {
+					model.addAttribute("mensaje", "Ya se ha creado una cuenta con este correo, por favor intente con otro");
+					flagUsers=false;
+					flag=false;
+				}else {
+					 flagUsers = rUsers(obRoomie);
+					 flag = rService.grabar(obRoomie);
+				}
+
+			}
+			
+			if (flag && flagUsers ) {
+				return "redirect:/roomie/datos" + obRoomie.getIdRoomie();
+			}
+			else { 
+
+				if(obRoomie.getIdRoomie() > 0) {
+					return "redirect:/roomie/modificar"+ obRoomie.getIdRoomie();
+				}
+				else {
+
+					return "redirect:/roomie/irRegistrar";
+				}	
 			}
 		}
+	}
+	
+	public boolean  rUsers(Roomie prop) {
+		Users users; 
+		users= uService.findByUsername(prop.getEmailRoomie());
+		if(users== null) {
+			users =  new Users();
+			List<Role> listRoles= new ArrayList<Role>();
+			Role role= new Role();
+			role.setRol("ROLE_ROOMIE");
+			listRoles.add(role);
+			users.setPassword(prop.getContraseñaRoomie());
+			users.setRoles(listRoles);
+			users.setEnabled(true);
+			users.setUsername(prop.getEmailRoomie());
+		}else if(users.getPassword()!=prop.getContraseñaRoomie()){			
+			users.setPassword(prop.getContraseñaRoomie());
+		}
+		boolean flagUsers = uService.save(users);
+		return flagUsers;
 	}
 	
 	@RequestMapping("/modificar/{id}")
