@@ -103,7 +103,6 @@ public class PropietarioController {
 			Boolean flagUsers;
 			Boolean flag;
 			
-			flag = rService.grabar(obPropietario);
 			if(obPropietario.getIdPropietario() > 0) {
 				 flagUsers = rUsers(obPropietario);
 				 flag = rService.grabar(obPropietario);

@@ -28,13 +28,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and().formLogin().loginPage("/loginR").permitAll()
 				.and().logout().permitAll().and()
 				.exceptionHandling().accessDeniedPage("/error");
-	
-	
 	}
 
 	@Autowired
-	public void configurerGlobal(AuthenticationManagerBuilder build) throws Exception {
+	public void configureGlobal(AuthenticationManagerBuilder build) throws Exception {
 			build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-
 	}
 }
