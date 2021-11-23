@@ -33,7 +33,7 @@ public class Roomie implements Serializable {
 	private String ARoomie;
 	
 	@Column(name="DNIRoomie", length=8, nullable=false)
-	private int DNIRoomie;
+	private String DNIRoomie;
 	
 	@Column(name="UsernameRoomie", length=60, nullable=false)
 	private String UsernameRoomie;
@@ -69,7 +69,7 @@ public class Roomie implements Serializable {
 		super();
 	}
 
-	public Roomie(int idRoomie, String nRoomie, String aRoomie, int dNIRoomie, String usernameRoomie,
+	public Roomie(int idRoomie, String nRoomie, String aRoomie, String dNIRoomie, String usernameRoomie,
 			Date dNacimientoRoomie, String generoRoomie, int nroCelularRoomie, String emailRoomie,
 			String nacionalidadRoomie, String presentacionRoomie, String contraseñaRoomie, Vivienda viviendaRoomie) {
 		super();
@@ -112,11 +112,11 @@ public class Roomie implements Serializable {
 		ARoomie = aRoomie;
 	}
 
-	public int getDNIRoomie() {
+	public String getDNIRoomie() {
 		return DNIRoomie;
 	}
 
-	public void setDNIRoomie(int dNIRoomie) {
+	public void setDNIRoomie(String dNIRoomie) {
 		DNIRoomie = dNIRoomie;
 	}
 

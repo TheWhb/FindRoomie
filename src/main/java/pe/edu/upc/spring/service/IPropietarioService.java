@@ -3,6 +3,8 @@ package pe.edu.upc.spring.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import pe.edu.upc.spring.model.Propietario;
 
 public interface IPropietarioService {
@@ -11,4 +13,5 @@ public interface IPropietarioService {
 	public Optional<Propietario> listarId(int idPropietario);
 	public List<Propietario> listar();
 	public List<Propietario> findByEmailAndPassword(String EmailPropietario, String ContraseñaPropietario);
+	public Propietario findByEmail(String email);
 }

@@ -51,4 +51,9 @@ public class PropietarioServiceImpl implements IPropietarioService {
 		return dPropietario.findByEmailAndPassword(EmailPropietario, ContraseñaPropietario);
 	}
 
+	@Override
+	public Propietario findByEmail(String email) {
+		return dPropietario.findByEmail(email);
+	}
+
 }

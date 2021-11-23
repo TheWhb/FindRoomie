@@ -13,4 +13,7 @@ import pe.edu.upc.spring.model.Propietario;
 public interface IPropietarioRepository extends JpaRepository<Propietario, Integer>{
 	@Query("from Propietario p where p.EmailPropietario = :Email and p.ContraseñaPropietario = :Contraseña")
 	List<Propietario> findByEmailAndPassword(@Param("Email")String EmailPropietario, @Param("Contraseña")String ContraseñaPropietario);
+	
+	@Query("from Propietario o where o.EmailPropietario = :email ")
+	Propietario findByEmail(@Param("email")String email);
 }
