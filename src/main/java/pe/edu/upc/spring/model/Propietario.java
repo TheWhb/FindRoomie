@@ -31,7 +31,7 @@ public class Propietario implements Serializable {
 	private String APropietario;
 	
 	@Column(name="DNIPropietario", length=8, nullable=false)
-	private int DNIPropietario;
+	private String DNIPropietario;
 	
 	@Column(name="UsernamePropietario", length=60, nullable=false)
 	private String UsernamePropietario;
@@ -53,14 +53,14 @@ public class Propietario implements Serializable {
 	@Column(name="NacionalidadPropietario", length=30, nullable=false)
 	private String NacionalidadPropietario;
 	
-	@Column(name="ContraseñaPropietario", length=10, nullable=false)
+	@Column(name="ContraseñaPropietario", length=70, nullable=false)
 	private String ContraseñaPropietario;
 
 	public Propietario() {
 		super();
 	}
 
-	public Propietario(int idPropietario, String nPropietario, String aPropietario, int dNIPropietario,
+	public Propietario(int idPropietario, String nPropietario, String aPropietario, String dNIPropietario,
 			String usernamePropietario, Date dNacimientoPropietario, String generoPropietario,
 			int nroCelularPropietario, String emailPropietario, String nacionalidadPropietario,
 			String contraseñaPropietario) {
@@ -102,11 +102,11 @@ public class Propietario implements Serializable {
 		APropietario = aPropietario;
 	}
 
-	public int getDNIPropietario() {
+	public String getDNIPropietario() {
 		return DNIPropietario;
 	}
 
-	public void setDNIPropietario(int dNIPropietario) {
+	public void setDNIPropietario(String dNIPropietario) {
 		DNIPropietario = dNIPropietario;
 	}
 

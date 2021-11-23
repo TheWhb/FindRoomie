@@ -1,10 +1,14 @@
 package pe.edu.upc.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.sun.el.parser.ParseException;
 
 import pe.edu.upc.spring.model.Propietario;
+import pe.edu.upc.spring.model.Role;
+import pe.edu.upc.spring.model.Users;
 import pe.edu.upc.spring.service.IPropietarioService;
+import pe.edu.upc.spring.serviceimpl.JpaUserDetailsService;
 
 @Controller
 @RequestMapping("/propietario")
@@ -29,6 +36,12 @@ public class PropietarioController {
 	
 	int IdPropietario;
 	String NombreApellido;
+	private String pasadaContraseña;
+	@Autowired
+	private JpaUserDetailsService uService;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+
 	
 	@RequestMapping("/bienvenido")
 	public String irPaginaBienvenida() {
@@ -60,26 +73,88 @@ public class PropietarioController {
 		model.addAttribute("propietario", new Propietario());
 		return "registroP"; // "propietario" es una pagina del frontEnd para insertar y/o modificar
 	}
-	
 	@RequestMapping("/registrar")
-	public String registrar(@ModelAttribute Propietario objPropietario, BindingResult binRes, Model model) 
-		throws ParseException
-	{
-		if (binRes.hasErrors())
-			return "registroP";
-		else {
-			boolean flag = rService.grabar(objPropietario);
-			if (flag) {
-				model.addAttribute("mensaje", objPropietario.getNPropietario());
-				return "redirect:/vivienda/datos/" + objPropietario.getIdPropietario();
+	public String registrar(@Valid Propietario obPropietario, BindingResult binRes, Model model) throws ParseException {
+		
+		if (binRes.hasErrors()) {
+			
+			if(obPropietario.getIdPropietario() > 0) {
+				return "registroP";
 			}
 			else {
-				model.addAttribute("mensaje", "No se pudo acceder");
-				return "redirect:/propietario/irRegistrar";
+				return "propietario";
+			}	
+		} else {
+			
+			if(obPropietario.getIdPropietario() > 0) {
+				if(obPropietario.getContraseñaPropietario()=="") {
+					obPropietario.setContraseñaPropietario(pasadaContraseña);
+				}else {
+					String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseñaPropietario());
+					obPropietario.setContraseñaPropietario(bcryptPassword);
+				}
+			}
+			
+			else {
+				String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseñaPropietario());
+				obPropietario.setContraseñaPropietario(bcryptPassword);	
+			}
+			
+			Boolean flagUsers;
+			Boolean flag;
+			
+			flag = rService.grabar(obPropietario);
+			if(obPropietario.getIdPropietario() > 0) {
+				 flagUsers = rUsers(obPropietario);
+				 flag = rService.grabar(obPropietario);
+			}else {
+				
+				Users users= uService.findByUsername(obPropietario.getEmailPropietario());
+				if(users!=null) {
+					model.addAttribute("mensaje", "Ya existe");
+					flagUsers=false;
+					flag=false;
+				}else {
+					 flagUsers = rUsers(obPropietario);
+					 flag = rService.grabar(obPropietario);
+				}
+
+			}
+			
+			if (flag && flagUsers ) {
+				return "redirect:/propietario/datos" + obPropietario.getIdPropietario();
+			}
+			else { 
+
+				if(obPropietario.getIdPropietario() > 0) {
+					return "redirect:/propietario/modificar" + obPropietario.getIdPropietario();
+				}
+				else {
+
+					return "redirect:/propietario/irRegistrar";
+				}	
 			}
 		}
 	}
-	
+	public boolean  rUsers(Propietario prop) {
+		Users users; 
+		users= uService.findByUsername(prop.getEmailPropietario());
+		if(users== null) {
+			users =  new Users();
+			List<Role> listRoles= new ArrayList<Role>();
+			Role role= new Role();
+			role.setRol("ROLE_PROP");
+			listRoles.add(role);
+			users.setPassword(prop.getContraseñaPropietario());
+			users.setRoles(listRoles);
+			users.setEnabled(true);
+			users.setUsername(prop.getEmailPropietario());
+		}else if(users.getPassword()!=prop.getContraseñaPropietario()){			
+			users.setPassword(prop.getContraseñaPropietario());
+		}
+		boolean flagUsers = uService.save(users);
+		return flagUsers;
+	}
 	@RequestMapping("/modificar/{id}")
 	public String modificar(@PathVariable int id, Model model, RedirectAttributes objRedir) 
 		throws ParseException
@@ -97,7 +172,6 @@ public class PropietarioController {
 			return "registroP";
 		}
 	}
-		
 	@RequestMapping("/eliminar")
 	public String eliminar(Map<String, Object> model,  @RequestParam(value="id") Integer id) {
 		try {
@@ -113,7 +187,6 @@ public class PropietarioController {
 		}
 		return "listPropietarios";
 	}
-		
 	@RequestMapping("/listar")
 	public String listar(Map<String, Object> model ) {
 		model.put("listaPropietarios", rService.listar());
@@ -123,6 +196,7 @@ public class PropietarioController {
 	@RequestMapping("/validarUsuario")
 	public String ingresarCuenta(@ModelAttribute("propietario") Propietario objPropietario, BindingResult binRes, Model model) throws ParseException {
 		List<Propietario> listaPropietarios;
+		
 		objPropietario.setEmailPropietario(objPropietario.getEmailPropietario());
 		objPropietario.setContraseñaPropietario(objPropietario.getContraseñaPropietario());
 		listaPropietarios = rService.findByEmailAndPassword(objPropietario.getEmailPropietario(), objPropietario.getContraseñaPropietario());
@@ -136,5 +210,4 @@ public class PropietarioController {
 			return "loginP";
 		}
 	}
-	
 }
