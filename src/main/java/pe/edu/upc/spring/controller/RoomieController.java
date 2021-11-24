@@ -50,7 +50,7 @@ public class RoomieController {
 	Boolean Premiun;
 	Vivienda ViviendaAlquilada;
 	int IdSuscripcion;
-	private String pasadaContraseÃ±a;
+	private String pasadaContraseña;
 	@Autowired
 	private JpaUserDetailsService uService;
 	@Autowired
@@ -131,17 +131,17 @@ public class RoomieController {
 		} else {
 			
 			if(obPropietario.getIdRoomie() > 0) {
-				if(obPropietario.getContraseÃ±aRoomie()=="") {
-					obPropietario.setContraseÃ±aRoomie(pasadaContraseÃ±a);
+				if(obPropietario.getContraseñaRoomie()=="") {
+					obPropietario.setContraseñaRoomie(pasadaContraseña);
 				}else {
-					String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseÃ±aRoomie());
-					obPropietario.setContraseÃ±aRoomie(bcryptPassword);
+					String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseñaRoomie());
+					obPropietario.setContraseñaRoomie(bcryptPassword);
 				}
 			}
 			
 			else {
-				String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseÃ±aRoomie());
-				obPropietario.setContraseÃ±aRoomie(bcryptPassword);	
+				String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseñaRoomie());
+				obPropietario.setContraseñaRoomie(bcryptPassword);	
 			}
 			
 			Boolean flagUsers;
@@ -189,12 +189,12 @@ public class RoomieController {
 			Role role= new Role();
 			role.setRol("ROLE_PROP");
 			listRoles.add(role);
-			users.setPassword(prop.getContraseÃ±aRoomie());
+			users.setPassword(prop.getContraseñaRoomie());
 			users.setRoles(listRoles);
 			users.setEnabled(true);
 			users.setUsername(prop.getEmailRoomie());
-		}else if(users.getPassword()!=prop.getContraseÃ±aRoomie()){			
-			users.setPassword(prop.getContraseÃ±aRoomie());
+		}else if(users.getPassword()!=prop.getContraseñaRoomie()){			
+			users.setPassword(prop.getContraseñaRoomie());
 		}
 		boolean flagUsers = uService.save(users);
 		return flagUsers;
@@ -230,7 +230,7 @@ public class RoomieController {
 				boolean flag = rService.grabar(roomie.get());
 				if (flag) {
 					ViviendaAlquilada = vivienda;
-					model.put("mensaje", "Â¡Alquilado!");
+					model.put("mensaje", "¡Alquilado!");
 				}
 				else {
 					model.put("mensaje", "No se pudo alquilar");
@@ -270,7 +270,7 @@ public class RoomieController {
 				boolean flag = rService.grabar(roomie.get());
 				if (flag) {
 					ViviendaAlquilada = null;
-					model.put("mensaje", "Â¡Cancelado!");
+					model.put("mensaje", "¡Cancelado!");
 				}
 				else {
 					model.put("mensaje", "No se pudo cancelar");
@@ -325,8 +325,8 @@ public class RoomieController {
 	public String ingresarCuenta(@ModelAttribute("roomie") Roomie objRoomie, BindingResult binRes, Model model) throws ParseException {
 		List<Roomie> listaRoomies;
 		objRoomie.setEmailRoomie(objRoomie.getEmailRoomie());
-		objRoomie.setContraseÃ±aRoomie(objRoomie.getContraseÃ±aRoomie());
-		listaRoomies = rService.findByEmailAndPassword(objRoomie.getEmailRoomie(), objRoomie.getContraseÃ±aRoomie());
+		objRoomie.setContraseñaRoomie(objRoomie.getContraseñaRoomie());
+		listaRoomies = rService.findByEmailAndPassword(objRoomie.getEmailRoomie(), objRoomie.getContraseñaRoomie());
     
 		if (!listaRoomies.isEmpty()) {
 			objRoomie = listaRoomies.get(0);
