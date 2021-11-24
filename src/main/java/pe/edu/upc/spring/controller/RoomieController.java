@@ -50,7 +50,7 @@ public class RoomieController {
 	Boolean Premiun;
 	Vivienda ViviendaAlquilada;
 	int IdSuscripcion;
-	private String pasadaContrasena;
+	private String pasadaContraseña;
 	@Autowired
 	private JpaUserDetailsService uService;
 	@Autowired
@@ -118,7 +118,7 @@ public class RoomieController {
 	
 	@RequestMapping("/registrar")
 	public String registrar(@Valid Roomie obPropietario, BindingResult binRes, Model model)
-				{
+			throws ParseException		{
 		
 		if (binRes.hasErrors()) {
 			
@@ -132,7 +132,7 @@ public class RoomieController {
 			
 			if(obPropietario.getIdRoomie() > 0) {
 				if(obPropietario.getContrasenaRoomie()=="") {
-					obPropietario.setContrasenaRoomie(pasadaContrasena);
+					obPropietario.setContrasenaRoomie(pasadaContraseña);
 				}else {
 					String bcryptPassword = passwordEncoder.encode(obPropietario.getContrasenaRoomie());
 					obPropietario.setContrasenaRoomie(bcryptPassword);
