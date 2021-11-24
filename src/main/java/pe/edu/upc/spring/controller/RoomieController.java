@@ -50,7 +50,7 @@ public class RoomieController {
 	Boolean Premiun;
 	Vivienda ViviendaAlquilada;
 	int IdSuscripcion;
-	private String pasadaContraseña;
+	private String pasadaContrasena;
 	@Autowired
 	private JpaUserDetailsService uService;
 	@Autowired
@@ -132,7 +132,7 @@ public class RoomieController {
 			
 			if(obPropietario.getIdRoomie() > 0) {
 				if(obPropietario.getContrasenaRoomie()=="") {
-					obPropietario.setContrasenaRoomie(pasadaContraseña);
+					obPropietario.setContrasenaRoomie(pasadaContrasena);
 				}else {
 					String bcryptPassword = passwordEncoder.encode(obPropietario.getContrasenaRoomie());
 					obPropietario.setContrasenaRoomie(bcryptPassword);
@@ -230,7 +230,7 @@ public class RoomieController {
 				boolean flag = rService.grabar(roomie.get());
 				if (flag) {
 					ViviendaAlquilada = vivienda;
-					model.put("mensaje", "¡Alquilado!");
+					model.put("mensaje", "Alquilado");
 				}
 				else {
 					model.put("mensaje", "No se pudo alquilar");
@@ -270,7 +270,7 @@ public class RoomieController {
 				boolean flag = rService.grabar(roomie.get());
 				if (flag) {
 					ViviendaAlquilada = null;
-					model.put("mensaje", "¡Cancelado!");
+					model.put("mensaje", "cancelado");
 				}
 				else {
 					model.put("mensaje", "No se pudo cancelar");
