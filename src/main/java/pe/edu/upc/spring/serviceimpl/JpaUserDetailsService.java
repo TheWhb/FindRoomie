@@ -26,8 +26,8 @@ public class JpaUserDetailsService implements UserDetailsService,IUsersService{
 
 	@Transactional(readOnly = true)
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		Users user = userRepository.findByUsername(email);
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Users user = userRepository.findByUsername(username);
 
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		if(user!= null) {
@@ -38,7 +38,7 @@ public class JpaUserDetailsService implements UserDetailsService,IUsersService{
 
 		}
 		else {
-			return new User(email, email, false, false, false, false, authorities);
+			return new User(username, username, false, false, false, false, authorities);
 		}
 	
 	}

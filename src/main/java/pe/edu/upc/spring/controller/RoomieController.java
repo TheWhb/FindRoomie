@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -115,12 +117,12 @@ public class RoomieController {
 	}
 	
 	@RequestMapping("/registrar")
-	public String registrar(@ModelAttribute Roomie obRoomie, BindingResult binRes, Model model) 
-		throws ParseException
-	{
+	public String registrar(@Valid Roomie obPropietario, BindingResult binRes, Model model)
+			{
+		
 		if (binRes.hasErrors()) {
 			
-			if(obRoomie.getIdRoomie() > 0) {
+			if(obPropietario.getIdRoomie() > 0) {
 				return "registroR";
 			}
 			else {
@@ -128,45 +130,47 @@ public class RoomieController {
 			}	
 		} else {
 			
-			if(obRoomie.getIdRoomie() > 0) {
-				if(obRoomie.getContraseñaRoomie()=="") {
-					obRoomie.setContraseñaRoomie(pasadaContraseña);
+			if(obPropietario.getIdRoomie() > 0) {
+				if(obPropietario.getContraseñaRoomie()=="") {
+					obPropietario.setContraseñaRoomie(pasadaContraseña);
 				}else {
-					String bcryptPassword = passwordEncoder.encode(obRoomie.getContraseñaRoomie());
-					obRoomie.setContraseñaRoomie(bcryptPassword);
+					String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseñaRoomie());
+					obPropietario.setContraseñaRoomie(bcryptPassword);
 				}
 			}
+			
 			else {
-				String bcryptPassword = passwordEncoder.encode(obRoomie.getContraseñaRoomie());
-				obRoomie.setContraseñaRoomie(bcryptPassword);	
+				String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseñaRoomie());
+				obPropietario.setContraseñaRoomie(bcryptPassword);	
 			}
+			
 			Boolean flagUsers;
 			Boolean flag;
 			
-			if(obRoomie.getIdRoomie() > 0) {
-				 flagUsers = rUsers(obRoomie);
-				 flag = rService.grabar(obRoomie);
+			if(obPropietario.getIdRoomie() > 0) {
+				 flagUsers = rUsers(obPropietario);
+				 flag = rService.grabar(obPropietario);
 			}else {
 				
-				Users users= uService.findByUsername(obRoomie.getEmailRoomie());
+				Users users= uService.findByUsername(obPropietario.getEmailRoomie());
 				if(users!=null) {
-					model.addAttribute("mensaje", "Ya se ha creado una cuenta con este correo, por favor intente con otro");
+					model.addAttribute("mensaje", "Ya existe");
 					flagUsers=false;
 					flag=false;
 				}else {
-					 flagUsers = rUsers(obRoomie);
-					 flag = rService.grabar(obRoomie);
+					 flagUsers = rUsers(obPropietario);
+					 flag = rService.grabar(obPropietario);
 				}
 
 			}
 			
 			if (flag && flagUsers ) {
-				return "redirect:/roomie/datos" + obRoomie.getIdRoomie();
+				return "redirect:/roomie/datos/" + obPropietario.getIdRoomie();
 			}
 			else { 
 
-				if(obRoomie.getIdRoomie() > 0) {
-					return "redirect:/roomie/modificar"+ obRoomie.getIdRoomie();
+				if(obPropietario.getIdRoomie() > 0) {
+					return "redirect:/roomie/modificar" + obPropietario.getIdRoomie();
 				}
 				else {
 
@@ -183,7 +187,7 @@ public class RoomieController {
 			users =  new Users();
 			List<Role> listRoles= new ArrayList<Role>();
 			Role role= new Role();
-			role.setRol("ROLE_ROOMIE");
+			role.setRol("ROLE_PROP");
 			listRoles.add(role);
 			users.setPassword(prop.getContraseñaRoomie());
 			users.setRoles(listRoles);
