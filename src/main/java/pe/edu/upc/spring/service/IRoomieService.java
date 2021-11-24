@@ -10,6 +10,6 @@ public interface IRoomieService {
 	public void eliminar(int idRoomie);
 	public Optional<Roomie> listarId(int idRoomie);
 	public List<Roomie> listar();
-	public List<Roomie> findByEmailAndPassword(String EmailRoomie, String ContraseñaRoomie);
+	public List<Roomie> findByEmailAndPassword(String EmailRoomie, String ContrasenaRoomie);
 	public Roomie findByEmail(String email);
 }
