@@ -74,7 +74,8 @@ public class PropietarioController {
 		return "registroP"; // "propietario" es una pagina del frontEnd para insertar y/o modificar
 	}
 	@RequestMapping("/registrar")
-	public String registrar(@Valid Propietario obPropietario, BindingResult binRes, Model model) throws ParseException {
+	public String registrar(@Valid Propietario obPropietario, BindingResult binRes, Model model)
+			throws ParseException {
 		
 		if (binRes.hasErrors()) {
 			
@@ -121,7 +122,7 @@ public class PropietarioController {
 			}
 			
 			if (flag && flagUsers ) {
-				return "redirect:/propietario/datos" + obPropietario.getIdPropietario();
+				return "redirect:/vivienda/datos/" + obPropietario.getIdPropietario();
 			}
 			else { 
 
