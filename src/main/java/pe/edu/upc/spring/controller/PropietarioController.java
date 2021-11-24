@@ -36,7 +36,7 @@ public class PropietarioController {
 	
 	int IdPropietario;
 	String NombreApellido;
-	private String pasadaContraseña;
+	private String pasadaContrasena;
 	@Autowired
 	private JpaUserDetailsService uService;
 	@Autowired
@@ -88,17 +88,17 @@ public class PropietarioController {
 		} else {
 			
 			if(obPropietario.getIdPropietario() > 0) {
-				if(obPropietario.getContraseñaPropietario()=="") {
-					obPropietario.setContraseñaPropietario(pasadaContraseña);
+				if(obPropietario.getContrasenaPropietario()=="") {
+					obPropietario.setContrasenaPropietario(pasadaContrasena);
 				}else {
-					String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseñaPropietario());
-					obPropietario.setContraseñaPropietario(bcryptPassword);
+					String bcryptPassword = passwordEncoder.encode(obPropietario.getContrasenaPropietario());
+					obPropietario.setContrasenaPropietario(bcryptPassword);
 				}
 			}
 			
 			else {
-				String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseñaPropietario());
-				obPropietario.setContraseñaPropietario(bcryptPassword);	
+				String bcryptPassword = passwordEncoder.encode(obPropietario.getContrasenaPropietario());
+				obPropietario.setContrasenaPropietario(bcryptPassword);	
 			}
 			
 			Boolean flagUsers;
@@ -145,12 +145,12 @@ public class PropietarioController {
 			Role role= new Role();
 			role.setRol("ROLE_PROP");
 			listRoles.add(role);
-			users.setPassword(prop.getContraseñaPropietario());
+			users.setPassword(prop.getContrasenaPropietario());
 			users.setRoles(listRoles);
 			users.setEnabled(true);
 			users.setUsername(prop.getEmailPropietario());
-		}else if(users.getPassword()!=prop.getContraseñaPropietario()){			
-			users.setPassword(prop.getContraseñaPropietario());
+		}else if(users.getPassword()!=prop.getContrasenaPropietario()){			
+			users.setPassword(prop.getContrasenaPropietario());
 		}
 		boolean flagUsers = uService.save(users);
 		return flagUsers;
@@ -198,8 +198,8 @@ public class PropietarioController {
 		List<Propietario> listaPropietarios;
 		
 		objPropietario.setEmailPropietario(objPropietario.getEmailPropietario());
-		objPropietario.setContraseñaPropietario(objPropietario.getContraseñaPropietario());
-		listaPropietarios = rService.findByEmailAndPassword(objPropietario.getEmailPropietario(), objPropietario.getContraseñaPropietario());
+		objPropietario.setContrasenaPropietario(objPropietario.getContrasenaPropietario());
+		listaPropietarios = rService.findByEmailAndPassword(objPropietario.getEmailPropietario(), objPropietario.getContrasenaPropietario());
 		
 		if (!listaPropietarios.isEmpty()) {
 			objPropietario = listaPropietarios.get(0);

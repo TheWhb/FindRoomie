@@ -58,8 +58,8 @@ public class Roomie implements Serializable {
 	@Column(name="PresentacionRoomie", length=200, nullable=false)
 	private String PresentacionRoomie;
 	
-	@Column(name="ContraseñaRoomie", length=70, nullable=false)
-	private String ContraseñaRoomie;
+	@Column(name="ContrasenaRoomie", length=70, nullable=false)
+	private String ContrasenaRoomie;
 	
 	@ManyToOne
 	@JoinColumn(name ="idVivienda", nullable=true)
@@ -68,10 +68,9 @@ public class Roomie implements Serializable {
 	public Roomie() {
 		super();
 	}
-
 	public Roomie(int idRoomie, String nRoomie, String aRoomie, String dNIRoomie, String usernameRoomie,
 			Date dNacimientoRoomie, String generoRoomie, String nroCelularRoomie, String emailRoomie,
-			String nacionalidadRoomie, String presentacionRoomie, String contraseñaRoomie, Vivienda viviendaRoomie) {
+			String nacionalidadRoomie, String presentacionRoomie, String contrasenaRoomie, Vivienda viviendaRoomie) {
 		super();
 		this.idRoomie = idRoomie;
 		NRoomie = nRoomie;
@@ -84,112 +83,88 @@ public class Roomie implements Serializable {
 		EmailRoomie = emailRoomie;
 		NacionalidadRoomie = nacionalidadRoomie;
 		PresentacionRoomie = presentacionRoomie;
-		ContraseñaRoomie = contraseñaRoomie;
+		ContrasenaRoomie = contrasenaRoomie;
 		this.viviendaRoomie = viviendaRoomie;
 	}
-
 	public int getIdRoomie() {
 		return idRoomie;
 	}
-
 	public void setIdRoomie(int idRoomie) {
 		this.idRoomie = idRoomie;
 	}
-
 	public String getNRoomie() {
 		return NRoomie;
 	}
-
 	public void setNRoomie(String nRoomie) {
 		NRoomie = nRoomie;
 	}
-
 	public String getARoomie() {
 		return ARoomie;
 	}
-
 	public void setARoomie(String aRoomie) {
 		ARoomie = aRoomie;
 	}
-
 	public String getDNIRoomie() {
 		return DNIRoomie;
 	}
-
 	public void setDNIRoomie(String dNIRoomie) {
 		DNIRoomie = dNIRoomie;
 	}
-
 	public String getUsernameRoomie() {
 		return UsernameRoomie;
 	}
-
 	public void setUsernameRoomie(String usernameRoomie) {
 		UsernameRoomie = usernameRoomie;
 	}
-
 	public Date getDNacimientoRoomie() {
 		return DNacimientoRoomie;
 	}
-
 	public void setDNacimientoRoomie(Date dNacimientoRoomie) {
 		DNacimientoRoomie = dNacimientoRoomie;
 	}
-
 	public String getGeneroRoomie() {
 		return GeneroRoomie;
 	}
-
 	public void setGeneroRoomie(String generoRoomie) {
 		GeneroRoomie = generoRoomie;
 	}
-
 	public String getNroCelularRoomie() {
 		return NroCelularRoomie;
 	}
-
 	public void setNroCelularRoomie(String nroCelularRoomie) {
 		NroCelularRoomie = nroCelularRoomie;
 	}
-
 	public String getEmailRoomie() {
 		return EmailRoomie;
 	}
-
 	public void setEmailRoomie(String emailRoomie) {
 		EmailRoomie = emailRoomie;
 	}
-
 	public String getNacionalidadRoomie() {
 		return NacionalidadRoomie;
 	}
-
 	public void setNacionalidadRoomie(String nacionalidadRoomie) {
 		NacionalidadRoomie = nacionalidadRoomie;
 	}
-
 	public String getPresentacionRoomie() {
 		return PresentacionRoomie;
 	}
-
 	public void setPresentacionRoomie(String presentacionRoomie) {
 		PresentacionRoomie = presentacionRoomie;
 	}
-
-	public String getContraseñaRoomie() {
-		return ContraseñaRoomie;
+	public String getContrasenaRoomie() {
+		return ContrasenaRoomie;
 	}
-
-	public void setContraseñaRoomie(String contraseñaRoomie) {
-		ContraseñaRoomie = contraseñaRoomie;
+	public void setContrasenaRoomie(String contrasenaRoomie) {
+		ContrasenaRoomie = contrasenaRoomie;
 	}
-
 	public Vivienda getViviendaRoomie() {
 		return viviendaRoomie;
 	}
-
 	public void setViviendaRoomie(Vivienda viviendaRoomie) {
 		this.viviendaRoomie = viviendaRoomie;
 	}
+
+	
 	
 }

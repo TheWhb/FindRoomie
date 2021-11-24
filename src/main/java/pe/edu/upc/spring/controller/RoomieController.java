@@ -131,17 +131,17 @@ public class RoomieController {
 		} else {
 			
 			if(obPropietario.getIdRoomie() > 0) {
-				if(obPropietario.getContraseñaRoomie()=="") {
-					obPropietario.setContraseñaRoomie(pasadaContraseña);
+				if(obPropietario.getContrasenaRoomie()=="") {
+					obPropietario.setContrasenaRoomie(pasadaContraseña);
 				}else {
-					String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseñaRoomie());
-					obPropietario.setContraseñaRoomie(bcryptPassword);
+					String bcryptPassword = passwordEncoder.encode(obPropietario.getContrasenaRoomie());
+					obPropietario.setContrasenaRoomie(bcryptPassword);
 				}
 			}
 			
 			else {
-				String bcryptPassword = passwordEncoder.encode(obPropietario.getContraseñaRoomie());
-				obPropietario.setContraseñaRoomie(bcryptPassword);	
+				String bcryptPassword = passwordEncoder.encode(obPropietario.getContrasenaRoomie());
+				obPropietario.setContrasenaRoomie(bcryptPassword);	
 			}
 			
 			Boolean flagUsers;
@@ -189,12 +189,12 @@ public class RoomieController {
 			Role role= new Role();
 			role.setRol("ROLE_PROP");
 			listRoles.add(role);
-			users.setPassword(prop.getContraseñaRoomie());
+			users.setPassword(prop.getContrasenaRoomie());
 			users.setRoles(listRoles);
 			users.setEnabled(true);
 			users.setUsername(prop.getEmailRoomie());
-		}else if(users.getPassword()!=prop.getContraseñaRoomie()){			
-			users.setPassword(prop.getContraseñaRoomie());
+		}else if(users.getPassword()!=prop.getContrasenaRoomie()){			
+			users.setPassword(prop.getContrasenaRoomie());
 		}
 		boolean flagUsers = uService.save(users);
 		return flagUsers;
@@ -325,8 +325,8 @@ public class RoomieController {
 	public String ingresarCuenta(@ModelAttribute("roomie") Roomie objRoomie, BindingResult binRes, Model model) throws ParseException {
 		List<Roomie> listaRoomies;
 		objRoomie.setEmailRoomie(objRoomie.getEmailRoomie());
-		objRoomie.setContraseñaRoomie(objRoomie.getContraseñaRoomie());
-		listaRoomies = rService.findByEmailAndPassword(objRoomie.getEmailRoomie(), objRoomie.getContraseñaRoomie());
+		objRoomie.setContrasenaRoomie(objRoomie.getContrasenaRoomie());
+		listaRoomies = rService.findByEmailAndPassword(objRoomie.getEmailRoomie(), objRoomie.getContrasenaRoomie());
     
 		if (!listaRoomies.isEmpty()) {
 			objRoomie = listaRoomies.get(0);

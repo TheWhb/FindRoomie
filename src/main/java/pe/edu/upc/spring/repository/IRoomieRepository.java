@@ -11,8 +11,8 @@ import pe.edu.upc.spring.model.Roomie;
 
 @Repository
 public interface IRoomieRepository extends JpaRepository<Roomie, Integer>{
-	@Query("from Roomie r where r.EmailRoomie = :Email and r.ContraseñaRoomie = :Contraseña")
-	List<Roomie> findByEmailAndPassword(@Param("Email")String EmailRoomie, @Param("Contraseña")String ContraseñaRoomie);
+	@Query("from Roomie r where r.EmailRoomie = :Email and r.ContrasenaRoomie = :Contrasena")
+	List<Roomie> findByEmailAndPassword(@Param("Email")String EmailRoomie, @Param("Contrasena")String ContrasenaRoomie);
 	
 	@Query("from Roomie o where o.EmailRoomie = :email ")
 	Roomie findByEmail(@Param("email")String email);
