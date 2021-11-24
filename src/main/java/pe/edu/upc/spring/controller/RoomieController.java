@@ -113,12 +113,12 @@ public class RoomieController {
 	@RequestMapping("/irRegistrar")
 	public String irPaginaRegistrar(Model model) {
 		model.addAttribute("roomie", new Roomie());
-		return "registroR"; // "roomie" es una pagina del frontEnd para insertar y/o modificar
+		return "registroR";
 	}
 	
 	@RequestMapping("/registrar")
 	public String registrar(@Valid Roomie obPropietario, BindingResult binRes, Model model)
-			{
+			throws ParseException		{
 		
 		if (binRes.hasErrors()) {
 			
