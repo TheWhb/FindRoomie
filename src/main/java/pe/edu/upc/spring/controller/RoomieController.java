@@ -118,7 +118,7 @@ public class RoomieController {
 	
 	@RequestMapping("/registrar")
 	public String registrar(@Valid Roomie obPropietario, BindingResult binRes, Model model)
-			throws ParseException		{
+				{
 		
 		if (binRes.hasErrors()) {
 			
